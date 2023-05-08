@@ -49,7 +49,7 @@
 		<table name="TB_CONEXAO" spec="" >
 			<column name="ID" type="TEXT" jt="-1" mandatory="y" />
 			<column name="CONJUNTODADOS_PRODUTO" type="TEXT" jt="-1" mandatory="y" />
-			<column name="TABELA" type="NUMERIC" jt="2" />
+			<column name="TABELA" type="TEXT" jt="-1" />
 			<column name="ORDEM_ORIGEM" type="INTEGER" jt="4" mandatory="y" />
 			<column name="TABELA_ORIGEM" type="TEXT" jt="-1" />
 			<column name="SISTEMA_ORIGEM" type="TEXT" jt="-1" />
@@ -62,6 +62,9 @@
 			<column name="FREQUENCIA" type="TEXT" jt="-1" />
 			<column name="MODO_ESCRITA" type="TEXT" jt="-1" />
 			<fk name="FK_TB_CONEXAO TB_TABELA" to_schema="Default" to_table="TB_TABELA" options="" >
+				<fk_column name="ID" pk="ID" />
+			</fk>
+			<fk name="FK_TB_CONEXAO TB_TABELA_001" to_schema="Default" to_table="TB_TABELA" options="" >
 				<fk_column name="CONJUNTODADOS_PRODUTO" pk="CONJUNTODADOS_PRODUTO" />
 			</fk>
 		</table>
@@ -175,7 +178,13 @@
 			<index name="pk_TB_TABELA" unique="PRIMARY_KEY" >
 				<column name="ID" />
 			</index>
+			<fk name="FK_TB_TABELA TB_OWNER_STEWARD_001" to_schema="Default" to_table="TB_OWNER_STEWARD" options="" >
+				<fk_column name="OWNER" pk="DataOwner" />
+			</fk>
 			<fk name="FK_TB_TABELA TB_OWNER_STEWARD" to_schema="Default" to_table="TB_OWNER_STEWARD" options="" >
+				<fk_column name="STEWARD" pk="DataSteward" />
+			</fk>
+			<fk name="FK_TB_TABELA TB_OWNER_STEWARD_002" to_schema="Default" to_table="TB_OWNER_STEWARD" options="" >
 				<fk_column name="CONJUNTODADOS_PRODUTO" pk="ConjuntodeDados" />
 			</fk>
 		</table>
@@ -193,13 +202,13 @@
 	</schema>
 	<connector name="Sqlite" database="Sqlite" driver_class="org.sqlite.JDBC" driver_jar="sqlite-jdbc-3.40.0.0.jar" driver_desc="Standard" host="localhost" port="7210" instance="C:/Users/Inteli/Documents/Projetos-GitHub/modulo-2/Projeto4/development/backup-database/project.db" useSystemProxy="false" />
 	<layout name="Main Layout" id="Layout-2123" show_relation="columns" >
-		<entity schema="Default" name="TB_CAMPO_CONEXAO" color="C7F4BE" x="1616" y="272" />
+		<entity schema="Default" name="TB_CAMPO_CONEXAO" color="C7F4BE" x="1728" y="272" />
 		<entity schema="Default" name="TB_CAMPO_TABELA" color="C7F4BE" x="1504" y="528" />
 		<entity schema="Default" name="TB_CAMPO_VARIAVEL" color="C7F4BE" x="1536" y="656" />
 		<entity schema="Default" name="TB_CLASSIFICACAO" color="BED3F4" x="784" y="608" />
 		<entity schema="Default" name="TB_CLASSIFICACAO_TABELA" color="BED3F4" x="64" y="592" />
 		<entity schema="Default" name="TB_CONEXAO" color="BED3F4" x="544" y="80" />
-		<entity schema="Default" name="TB_OWNER_STEWARD" color="3986C1" x="592" y="368" />
+		<entity schema="Default" name="TB_OWNER_STEWARD" color="3986C1" x="544" y="368" />
 		<entity schema="Default" name="TB_REQUISICAO" color="C7F4BE" x="1008" y="400" />
 		<entity schema="Default" name="TB_REQ_CONEXAO" color="C7F4BE" x="1392" y="304" />
 		<entity schema="Default" name="TB_REQ_TABELA" color="C7F4BE" x="1296" y="432" />
