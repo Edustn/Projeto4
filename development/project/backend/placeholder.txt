@@ -1,0 +1,28 @@
+[{
+	"id_tabela": "autmato",
+	"user": "juninho",
+	"status": 0,
+	"reqs_tabela": [{
+		"id_campo_tabela": 1,
+		"alteracao": " t"
+	}],
+	"reqs_variavel": [{
+			"id_campo_variavel": 4,
+			"alteracao": " "
+		},
+		{
+			"id_campo_variavel": 4,
+			"alteracao": " "
+		}
+	],
+	"reqs_conexao": [{
+			"id_campo_conexao": 4,
+			"alteracao": ""
+		},
+		{
+			"id_campo_conexao": 4,
+			"alteracao": ""
+
+		}
+	]
+}]
