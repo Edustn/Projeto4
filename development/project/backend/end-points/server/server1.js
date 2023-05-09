@@ -28,5 +28,5 @@ app.get('/catagoDadosConexoes', (req, res) => {
 
 // Iniciar o servidor
 app.listen(PORT, () => {
-  console.log(`Servidor iniciado na porta http://${hostname}:${PORT}`);
+  console.log(`Servidor iniciado na porta http://${hostname}:${PORT}/`);
 });
