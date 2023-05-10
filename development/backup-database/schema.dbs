@@ -84,11 +84,15 @@
 			<column name="ID_REQUISICAO" type="INTEGER" jt="4" mandatory="y" />
 			<column name="ID_TABELA" type="TEXT" jt="-1" mandatory="y" />
 			<column name="USUARIO" type="TEXT" jt="-1" mandatory="y" />
+			<column name="ID_STATUS" type="INTEGER" jt="4" mandatory="y" />
 			<index name="pk_TB_REQUISICAO" unique="PRIMARY_KEY" >
 				<column name="ID_REQUISICAO" options=" AUTOINCREMENT" />
 			</index>
 			<fk name="FK_TB_REQUISICAO TB_TABELA" to_schema="Default" to_table="TB_TABELA" options="" >
 				<fk_column name="ID_TABELA" pk="ID" />
+			</fk>
+			<fk name="FK_TB_REQUISICAO TB_STATUS" to_schema="Default" to_table="TB_STATUS" options="" >
+				<fk_column name="ID_STATUS" pk="ID_STATUS" />
 			</fk>
 		</table>
 		<table name="TB_REQ_CONEXAO" spec="" >
@@ -96,7 +100,7 @@
 			<column name="ID_CAMPO_CONEXAO" type="INTEGER" jt="4" mandatory="y" />
 			<column name="ID_REQUISICAO" type="INTEGER" jt="4" mandatory="y" />
 			<column name="ALTERACAO" type="TEXT" jt="-1" mandatory="y" />
-			<column name="STATUS" type="INTEGER" jt="4" mandatory="y" />
+			<column name="ALTERACAO_GOVERNANCA" type="TEXT" jt="-1" />
 			<index name="pk_TB_REQ_CONEXAO" unique="PRIMARY_KEY" >
 				<column name="ID_REQ_CONEXAO" options=" AUTOINCREMENT" />
 			</index>
@@ -106,22 +110,16 @@
 			<fk name="FK_TB_REQ_CONEXAO TB_CAMPO_CONEXAO" to_schema="Default" to_table="TB_CAMPO_CONEXAO" options="" >
 				<fk_column name="ID_CAMPO_CONEXAO" pk="ID_CAMPO_CONEXAO" />
 			</fk>
-			<fk name="FK_TB_REQ_CONEXAO TB_STATUS" to_schema="Default" to_table="TB_STATUS" options="" >
-				<fk_column name="STATUS" pk="ID_STATUS" />
-			</fk>
 		</table>
 		<table name="TB_REQ_TABELA" spec="" >
 			<column name="ID_REQ_TABELA" type="INTEGER" jt="4" mandatory="y" />
 			<column name="ID_REQUISICAO" type="INTEGER" jt="4" mandatory="y" />
 			<column name="ID_CAMPO_TABELA" type="INTEGER" jt="4" mandatory="y" />
 			<column name="ALTERACAO" type="TEXT" jt="-1" mandatory="y" />
-			<column name="STATUS" type="INTEGER" jt="4" mandatory="y" />
+			<column name="ALTERACAO_GOVERNANCA" type="TEXT" jt="-1" />
 			<index name="pk_TB_REQ_TABELA" unique="PRIMARY_KEY" >
 				<column name="ID_REQ_TABELA" options=" AUTOINCREMENT" />
 			</index>
-			<fk name="FK_TB_REQ_TABELA TB_STATUS" to_schema="Default" to_table="TB_STATUS" options="" >
-				<fk_column name="STATUS" pk="ID_STATUS" />
-			</fk>
 			<fk name="FK_TB_REQ_TABELA TB_CAMPO_TABELA" to_schema="Default" to_table="TB_CAMPO_TABELA" options="" >
 				<fk_column name="ID_CAMPO_TABELA" pk="ID_CAMPO_TABELA" />
 			</fk>
@@ -134,7 +132,7 @@
 			<column name="ID_REQUISICAO" type="INTEGER" jt="4" mandatory="y" />
 			<column name="ID_CAMPO_VARIAVEL" type="INTEGER" jt="4" mandatory="y" />
 			<column name="ALTERACAO" type="TEXT" jt="-1" mandatory="y" />
-			<column name="STATUS" type="INTEGER" jt="4" mandatory="y" />
+			<column name="ALTERACAO_GOVERNANCA" type="TEXT" jt="-1" />
 			<index name="pk_TB_REQ_VARIAVEL" unique="PRIMARY_KEY" >
 				<column name="ID_REQ_VARIAVEL" options=" AUTOINCREMENT" />
 			</index>
@@ -143,9 +141,6 @@
 			</fk>
 			<fk name="FK_TB_REQ_VARIAVEL TB_CAMPO_VARIAVEL" to_schema="Default" to_table="TB_CAMPO_VARIAVEL" options="" >
 				<fk_column name="ID_CAMPO_VARIAVEL" pk="ID_CAMPO_VARIAVEL" />
-			</fk>
-			<fk name="FK_TB_REQ_VARIAVEL TB_STATUS" to_schema="Default" to_table="TB_STATUS" options="" >
-				<fk_column name="STATUS" pk="ID_STATUS" />
 			</fk>
 		</table>
 		<table name="TB_STATUS" spec="" >
@@ -199,43 +194,130 @@
 				<fk_column name="ID_CLASSIFICACAO" pk="ID_CLASSIFICACAO" />
 			</fk>
 		</table>
+		<table name="TB_VARIAVEL" spec="" >
+			<column name="ID_VARIAVEL" type="INTEGER" jt="4" mandatory="y" />
+			<column name="ID" type="TEXT" jt="-1" mandatory="y" />
+			<column name="CONJUNTO_DADOS" type="TEXT" jt="-1" mandatory="y" />
+			<column name="NOME_CAMPO" type="TEXT" jt="-1" mandatory="y" />
+			<column name="TIPO_CAMPO" type="TEXT" jt="-1" mandatory="y" />
+			<column name="TAMANHO_CAMPO" type="TEXT" jt="-1" mandatory="y" />
+			<column name="TIPO_PESSOA" type="TEXT" jt="-1" mandatory="y" />
+			<column name="DESCRICAO_CAMPO" type="TEXT" jt="-1" mandatory="y" />
+			<column name="CH_PRIMARIA" type="TEXT" jt="-1" mandatory="y" />
+			<column name="NULL" type="TEXT" jt="-1" mandatory="y" />
+			<column name="UNQ" type="TEXT" jt="-1" mandatory="y" />
+			<column name="LGPD" type="TEXT" jt="-1" mandatory="y" />
+			<column name="REGRA_CRIACAO" type="TEXT" jt="-1" mandatory="y" />
+			<column name="INDICADOR_AJUSTE_NOMENCLATURA_TABELA" type="TEXT" jt="-1" />
+			<index name="pk_TB_VARIAVEL" unique="PRIMARY_KEY" >
+				<column name="ID_VARIAVEL" options=" AUTOINCREMENT" />
+			</index>
+			<fk name="FK_TB_VARIAVEL TB_TABELA" to_schema="Default" to_table="TB_TABELA" >
+				<fk_column name="CONJUNTO_DADOS" pk="CONJUNTODADOS_PRODUTO" />
+			</fk>
+			<fk name="FK_TB_VARIAVEL TB_TABELA_1" to_schema="Default" to_table="TB_TABELA" >
+				<fk_column name="ID" pk="ID" />
+			</fk>
+		</table>
 	</schema>
 	<connector name="Sqlite" database="Sqlite" driver_class="org.sqlite.JDBC" driver_jar="sqlite-jdbc-3.40.0.0.jar" driver_desc="Standard" host="localhost" port="7210" instance="C:/Users/Inteli/Documents/Projetos-GitHub/modulo-2/Projeto4/development/backup-database/project.db" useSystemProxy="false" />
 	<layout name="Main Layout" id="Layout-2123" show_relation="columns" >
-		<entity schema="Default" name="TB_CAMPO_CONEXAO" color="C7F4BE" x="1728" y="272" />
-		<entity schema="Default" name="TB_CAMPO_TABELA" color="C7F4BE" x="1504" y="528" />
-		<entity schema="Default" name="TB_CAMPO_VARIAVEL" color="C7F4BE" x="1536" y="656" />
-		<entity schema="Default" name="TB_CLASSIFICACAO" color="BED3F4" x="784" y="608" />
-		<entity schema="Default" name="TB_CLASSIFICACAO_TABELA" color="BED3F4" x="64" y="592" />
-		<entity schema="Default" name="TB_CONEXAO" color="BED3F4" x="544" y="80" />
-		<entity schema="Default" name="TB_OWNER_STEWARD" color="3986C1" x="544" y="368" />
-		<entity schema="Default" name="TB_REQUISICAO" color="C7F4BE" x="1008" y="400" />
-		<entity schema="Default" name="TB_REQ_CONEXAO" color="C7F4BE" x="1392" y="304" />
-		<entity schema="Default" name="TB_REQ_TABELA" color="C7F4BE" x="1296" y="432" />
-		<entity schema="Default" name="TB_REQ_VARIAVEL" color="C7F4BE" x="1232" y="592" />
-		<entity schema="Default" name="TB_STATUS" color="C7F4BE" x="1648" y="432" />
-		<entity schema="Default" name="TB_TABELA" color="BED3F4" x="48" y="192" />
-		<entity schema="Default" name="TB_VALOR_CLASSIFICACAO" color="BED3F4" x="480" y="592" />
-		<callout x="816" y="864" pointer="Round" >
+		<entity schema="Default" name="TB_CAMPO_CONEXAO" color="C7F4BE" x="1728" y="336" >
+			<column name="ID_CAMPO_CONEXAO" />
+		</entity>
+		<entity schema="Default" name="TB_CAMPO_TABELA" color="C7F4BE" x="1664" y="528" >
+			<column name="ID_CAMPO_TABELA" />
+		</entity>
+		<entity schema="Default" name="TB_CAMPO_VARIAVEL" color="C7F4BE" x="1536" y="720" >
+			<column name="ID_CAMPO_VARIAVEL" />
+		</entity>
+		<entity schema="Default" name="TB_CLASSIFICACAO" color="BED3F4" x="784" y="672" >
+			<column name="ID_CLASSIFICACAO" />
+		</entity>
+		<entity schema="Default" name="TB_CLASSIFICACAO_TABELA" color="BED3F4" x="64" y="656" />
+		<entity schema="Default" name="TB_CONEXAO" color="BED3F4" x="400" y="144" >
+			<column name="ID" />
+			<column name="CONJUNTODADOS_PRODUTO" />
+		</entity>
+		<entity schema="Default" name="TB_OWNER_STEWARD" color="3986C1" x="544" y="432" >
+			<column name="ConjuntodeDados" />
+		</entity>
+		<entity schema="Default" name="TB_REQUISICAO" color="C7F4BE" x="1008" y="464" >
+			<column name="ID_REQUISICAO" />
+			<column name="ID_TABELA" />
+			<column name="ID_STATUS" />
+		</entity>
+		<entity schema="Default" name="TB_REQ_CONEXAO" color="C7F4BE" x="1296" y="320" >
+			<column name="ID_REQ_CONEXAO" />
+			<column name="ID_CAMPO_CONEXAO" />
+			<column name="ID_REQUISICAO" />
+		</entity>
+		<entity schema="Default" name="TB_REQ_TABELA" color="C7F4BE" x="1296" y="496" >
+			<column name="ID_REQ_TABELA" />
+			<column name="ID_REQUISICAO" />
+			<column name="ID_CAMPO_TABELA" />
+		</entity>
+		<entity schema="Default" name="TB_REQ_VARIAVEL" color="C7F4BE" x="1232" y="656" >
+			<column name="ID_REQ_VARIAVEL" />
+			<column name="ID_REQUISICAO" />
+			<column name="ID_CAMPO_VARIAVEL" />
+		</entity>
+		<entity schema="Default" name="TB_STATUS" color="C7F4BE" x="1088" y="720" >
+			<column name="ID_STATUS" />
+		</entity>
+		<entity schema="Default" name="TB_TABELA" color="BED3F4" x="48" y="256" >
+			<column name="ID" />
+			<column name="CONJUNTODADOS_PRODUTO" />
+			<column name="OWNER" />
+			<column name="STEWARD" />
+		</entity>
+		<entity schema="Default" name="TB_VALOR_CLASSIFICACAO" color="BED3F4" x="480" y="656" >
+			<column name="ID_VALOR_CLASSIFICACAO" />
+			<column name="ID_CLASSIFICACAO" />
+		</entity>
+		<entity schema="Default" name="TB_VARIAVEL" color="3986C1" x="640" y="80" >
+			<column name="ID_VARIAVEL" />
+			<column name="ID" />
+			<column name="CONJUNTO_DADOS" />
+		</entity>
+		<callout x="816" y="928" pointer="Round" >
 			<comment><![CDATA[.]]></comment>
 		</callout>
 		<group name="TB_VALOR_CLASSIFICACAO" color="ECF0F7" >
 			<entity schema="Default" name="TB_CLASSIFICACAO_TABELA" />
-			<entity schema="Default" name="TB_TABELA" />
 			<entity schema="Default" name="TB_CLASSIFICACAO" />
 			<entity schema="Default" name="TB_VALOR_CLASSIFICACAO" />
+			<entity schema="Default" name="TB_TABELA" />
 			<entity schema="Default" name="TB_CONEXAO" />
 		</group>
 		<group name="TB_REQUISICAO" color="EEF7EC" >
-			<entity schema="Default" name="TB_REQ_VARIAVEL" />
 			<entity schema="Default" name="TB_REQ_TABELA" />
-			<entity schema="Default" name="TB_CAMPO_TABELA" />
-			<entity schema="Default" name="TB_REQUISICAO" />
-			<entity schema="Default" name="TB_REQ_CONEXAO" />
-			<entity schema="Default" name="TB_STATUS" />
 			<entity schema="Default" name="TB_CAMPO_VARIAVEL" />
 			<entity schema="Default" name="TB_CAMPO_CONEXAO" />
+			<entity schema="Default" name="TB_REQ_VARIAVEL" />
+			<entity schema="Default" name="TB_REQ_CONEXAO" />
+			<entity schema="Default" name="TB_CAMPO_TABELA" />
+			<entity schema="Default" name="TB_REQUISICAO" />
+			<entity schema="Default" name="TB_STATUS" />
 		</group>
+		<query id="Query-2537" name="TB_CONEXAO" >
+			<query_table schema="Default" name="TB_CONEXAO" alias="tc" x="48" y="48" >
+				<column name="ID" />
+				<column name="CONJUNTODADOS_PRODUTO" />
+				<column name="TABELA" />
+				<column name="ORDEM_ORIGEM" />
+				<column name="TABELA_ORIGEM" />
+				<column name="SISTEMA_ORIGEM" />
+				<column name="SERVIDOR_ORIGEM" />
+				<column name="DATABASE_ORIGEM" />
+				<column name="SCHEMA_ORIGEM" />
+				<column name="TIPO_CONEXAO" />
+				<column name="REPOSITORIO" />
+				<column name="MECANICA" />
+				<column name="FREQUENCIA" />
+				<column name="MODO_ESCRITA" />
+			</query_table>
+		</query>
 	</layout>
 	<layout name="~Layout with Sample Tools" id="Layout-229e" show_column_type="y" show_relation="columns" >
 		<entity schema="Default" name="TB_CAMPO_CONEXAO" color="C7F4BE" x="1232" y="304" />
@@ -260,27 +342,13 @@ FROM
 		</script>
 		<browser id="Browse-d7e" name="Relational Data Explorer" confirm_updates="y" >
 			<browse_table schema="Default" entity="TB_REQUISICAO" x="20" y="20" width="400" height="300" >
-				<browse_table schema="Default" entity="TB_REQ_CONEXAO" fk="FK_TB_REQ_CONEXAO TB_REQUISICAO" x="440" y="20" width="500" height="350" >
-					<browse_table schema="Default" entity="TB_STATUS" fk="FK_TB_REQ_CONEXAO TB_STATUS" x="960" y="20" width="500" height="350" record_view="y" />
-				</browse_table>
+				<browse_table schema="Default" entity="TB_REQ_CONEXAO" fk="FK_TB_REQ_CONEXAO TB_REQUISICAO" x="440" y="20" width="500" height="350" />
 			</browse_table>
 		</browser>
 		<query id="Query-219b" name="Query Builder" >
-			<query_table schema="Default" name="TB_REQUISICAO" alias="tr" x="48" y="48" >
-				<column name="ID_REQUISICAO" />
-				<column name="ID_TABELA" />
-				<column name="USUARIO" />
-				<query_table schema="Default" name="TB_REQ_CONEXAO" alias="trc" x="272" y="48" fk="FK_TB_REQ_CONEXAO TB_REQUISICAO" type="Inner Join" >
-					<column name="ID_REQ_CONEXAO" />
-					<column name="ID_CAMPO_CONEXAO" />
-					<column name="ID_REQUISICAO" />
-					<column name="ALTERACAO" />
-					<column name="STATUS" />
-					<query_table schema="Default" name="TB_STATUS" alias="ts" x="528" y="48" fk="FK_TB_REQ_CONEXAO TB_STATUS" type="Inner Join" >
-						<column name="ID_STATUS" />
-						<column name="NOME_STATUS" />
-					</query_table>
-				</query_table>
+			<query_table schema="Default" name="TB_STATUS" alias="ts" x="48" y="48" >
+				<column name="ID_STATUS" />
+				<column name="NOME_STATUS" />
 			</query_table>
 		</query>
 		<form name="Report" id="Report-7f9" template="Page" css="container-fluid" view="frame" >
