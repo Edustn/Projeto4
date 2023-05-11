@@ -47,6 +47,7 @@
 			</fk>
 		</table>
 		<table name="TB_CONEXAO" spec="" >
+			<column name="ID_CONEXAO" type="INTEGER" jt="4" mandatory="y" />
 			<column name="ID" type="TEXT" jt="-1" mandatory="y" />
 			<column name="CONJUNTODADOS_PRODUTO" type="TEXT" jt="-1" mandatory="y" />
 			<column name="TABELA" type="TEXT" jt="-1" />
@@ -61,11 +62,14 @@
 			<column name="MECANICA" type="TEXT" jt="-1" />
 			<column name="FREQUENCIA" type="TEXT" jt="-1" />
 			<column name="MODO_ESCRITA" type="TEXT" jt="-1" />
+			<index name="pk_TB_CONEXAO" unique="PRIMARY_KEY" >
+				<column name="ID_CONEXAO" />
+			</index>
 			<fk name="FK_TB_CONEXAO TB_TABELA" to_schema="Default" to_table="TB_TABELA" options="" >
-				<fk_column name="ID" pk="ID" />
+				<fk_column name="CONJUNTODADOS_PRODUTO" pk="CONJUNTODADOS_PRODUTO" />
 			</fk>
 			<fk name="FK_TB_CONEXAO TB_TABELA_001" to_schema="Default" to_table="TB_TABELA" options="" >
-				<fk_column name="CONJUNTODADOS_PRODUTO" pk="CONJUNTODADOS_PRODUTO" />
+				<fk_column name="ID" pk="ID" />
 			</fk>
 		</table>
 		<table name="TB_OWNER_STEWARD" spec="" >
@@ -84,6 +88,7 @@
 			<column name="ID_REQUISICAO" type="INTEGER" jt="4" mandatory="y" />
 			<column name="ID_TABELA" type="TEXT" jt="-1" mandatory="y" />
 			<column name="USUARIO" type="TEXT" jt="-1" mandatory="y" />
+			<column name="JUSTIFICATIVA" type="TEXT" jt="-1" mandatory="y" />
 			<column name="ID_STATUS" type="INTEGER" jt="4" mandatory="y" />
 			<index name="pk_TB_REQUISICAO" unique="PRIMARY_KEY" >
 				<column name="ID_REQUISICAO" options=" AUTOINCREMENT" />
@@ -100,7 +105,7 @@
 			<column name="ID_CAMPO_CONEXAO" type="INTEGER" jt="4" mandatory="y" />
 			<column name="ID_REQUISICAO" type="INTEGER" jt="4" mandatory="y" />
 			<column name="ALTERACAO" type="TEXT" jt="-1" mandatory="y" />
-			<column name="ALTERACAO_GOVERNANCA" type="TEXT" jt="-1" mandatory="y" />
+			<column name="ALTERACAO_GOVERNANCA" type="TEXT" jt="-1" />
 			<index name="pk_TB_REQ_CONEXAO" unique="PRIMARY_KEY" >
 				<column name="ID_REQ_CONEXAO" options=" AUTOINCREMENT" />
 			</index>
@@ -173,14 +178,14 @@
 			<index name="pk_TB_TABELA" unique="PRIMARY_KEY" >
 				<column name="ID" />
 			</index>
-			<fk name="FK_TB_TABELA TB_OWNER_STEWARD_001" to_schema="Default" to_table="TB_OWNER_STEWARD" options="" >
+			<fk name="FK_TB_TABELA TB_OWNER_STEWARD" to_schema="Default" to_table="TB_OWNER_STEWARD" options="" >
 				<fk_column name="OWNER" pk="DataOwner" />
 			</fk>
-			<fk name="FK_TB_TABELA TB_OWNER_STEWARD" to_schema="Default" to_table="TB_OWNER_STEWARD" options="" >
-				<fk_column name="STEWARD" pk="DataSteward" />
+			<fk name="FK_TB_TABELA TB_OWNER_STEWARD_001" to_schema="Default" to_table="TB_OWNER_STEWARD" options="" >
+				<fk_column name="CONJUNTODADOS_PRODUTO" pk="ConjuntodeDados" />
 			</fk>
 			<fk name="FK_TB_TABELA TB_OWNER_STEWARD_002" to_schema="Default" to_table="TB_OWNER_STEWARD" options="" >
-				<fk_column name="CONJUNTODADOS_PRODUTO" pk="ConjuntodeDados" />
+				<fk_column name="STEWARD" pk="DataSteward" />
 			</fk>
 		</table>
 		<table name="TB_VALOR_CLASSIFICACAO" spec="" >
@@ -194,81 +199,112 @@
 				<fk_column name="ID_CLASSIFICACAO" pk="ID_CLASSIFICACAO" />
 			</fk>
 		</table>
+		<table name="TB_VARIAVEL" spec="" >
+			<column name="ID_VARIAVEL" type="INTEGER" jt="4" mandatory="y" />
+			<column name="CONJUNTODADOS_PRODUTO" type="TEXT" jt="-1" mandatory="y" />
+			<column name="TABELA" type="TEXT" jt="-1" mandatory="y" />
+			<column name="NOME_CAMPO" type="TEXT" jt="-1" mandatory="y" />
+			<column name="TIPO_CAMPO" type="TEXT" jt="-1" mandatory="y" />
+			<column name="TIPO_PESSOA" type="TEXT" jt="-1" />
+			<column name="DESCRICAO_CAMPO" type="TEXT" jt="-1" />
+			<column name="VOLATIL" type="TEXT" jt="-1" />
+			<column name="CH_PRIMARIA" type="TEXT" jt="-1" />
+			<column name="NULL" type="TEXT" jt="-1" />
+			<column name="UNQ" type="TEXT" jt="-1" />
+			<column name="LGPD" type="TEXT" jt="-1" />
+			<index name="pk_TB_VARIAVEL" unique="PRIMARY_KEY" >
+				<column name="ID_VARIAVEL" />
+			</index>
+			<fk name="FK_TB_VARIAVEL TB_TABELA" to_schema="Default" to_table="TB_TABELA" options="" >
+				<fk_column name="CONJUNTODADOS_PRODUTO" pk="CONJUNTODADOS_PRODUTO" />
+			</fk>
+			<fk name="FK_TB_VARIAVEL TB_TABELA_001" to_schema="Default" to_table="TB_TABELA" options="" >
+				<fk_column name="TABELA" pk="ID" />
+			</fk>
+		</table>
 	</schema>
 	<connector name="Sqlite" database="Sqlite" driver_class="org.sqlite.JDBC" driver_jar="sqlite-jdbc-3.40.0.0.jar" driver_desc="Standard" host="localhost" port="7210" instance="C:/Users/Inteli/Documents/Projetos-GitHub/modulo-2/Projeto4/development/backup-database/project.db" useSystemProxy="false" />
 	<layout name="Main Layout" id="Layout-2123" show_relation="columns" >
-		<entity schema="Default" name="TB_CAMPO_CONEXAO" color="C7F4BE" x="1728" y="272" >
+		<entity schema="Default" name="TB_CAMPO_CONEXAO" color="C7F4BE" x="1728" y="336" >
 			<column name="ID_CAMPO_CONEXAO" />
 		</entity>
-		<entity schema="Default" name="TB_CAMPO_TABELA" color="C7F4BE" x="1664" y="464" >
+		<entity schema="Default" name="TB_CAMPO_TABELA" color="C7F4BE" x="1664" y="528" >
 			<column name="ID_CAMPO_TABELA" />
 		</entity>
-		<entity schema="Default" name="TB_CAMPO_VARIAVEL" color="C7F4BE" x="1536" y="656" >
+		<entity schema="Default" name="TB_CAMPO_VARIAVEL" color="C7F4BE" x="1536" y="720" >
 			<column name="ID_CAMPO_VARIAVEL" />
 		</entity>
-		<entity schema="Default" name="TB_CLASSIFICACAO" color="BED3F4" x="784" y="608" >
+		<entity schema="Default" name="TB_CLASSIFICACAO" color="BED3F4" x="784" y="672" >
 			<column name="ID_CLASSIFICACAO" />
 		</entity>
-		<entity schema="Default" name="TB_CLASSIFICACAO_TABELA" color="BED3F4" x="64" y="592" />
-		<entity schema="Default" name="TB_CONEXAO" color="BED3F4" x="544" y="80" >
+		<entity schema="Default" name="TB_CLASSIFICACAO_TABELA" color="BED3F4" x="64" y="656" />
+		<entity schema="Default" name="TB_CONEXAO" color="BED3F4" x="768" y="240" >
 			<column name="ID" />
 			<column name="CONJUNTODADOS_PRODUTO" />
+			<column name="ID_CONEXAO" />
 		</entity>
-		<entity schema="Default" name="TB_OWNER_STEWARD" color="3986C1" x="544" y="368" >
+		<entity schema="Default" name="TB_OWNER_STEWARD" color="3986C1" x="544" y="432" >
 			<column name="ConjuntodeDados" />
 		</entity>
-		<entity schema="Default" name="TB_REQUISICAO" color="C7F4BE" x="1008" y="400" >
+		<entity schema="Default" name="TB_REQUISICAO" color="C7F4BE" x="1008" y="464" >
 			<column name="ID_REQUISICAO" />
 			<column name="ID_TABELA" />
 			<column name="ID_STATUS" />
+			<column name="JUSTIFICATIVA" />
 		</entity>
-		<entity schema="Default" name="TB_REQ_CONEXAO" color="C7F4BE" x="1296" y="256" >
+		<entity schema="Default" name="TB_REQ_CONEXAO" color="C7F4BE" x="1296" y="320" >
 			<column name="ID_REQ_CONEXAO" />
 			<column name="ID_CAMPO_CONEXAO" />
 			<column name="ID_REQUISICAO" />
 		</entity>
-		<entity schema="Default" name="TB_REQ_TABELA" color="C7F4BE" x="1296" y="432" >
+		<entity schema="Default" name="TB_REQ_TABELA" color="C7F4BE" x="1296" y="496" >
 			<column name="ID_REQ_TABELA" />
 			<column name="ID_REQUISICAO" />
 			<column name="ID_CAMPO_TABELA" />
 		</entity>
-		<entity schema="Default" name="TB_REQ_VARIAVEL" color="C7F4BE" x="1232" y="592" >
+		<entity schema="Default" name="TB_REQ_VARIAVEL" color="C7F4BE" x="1232" y="656" >
 			<column name="ID_REQ_VARIAVEL" />
 			<column name="ID_REQUISICAO" />
 			<column name="ID_CAMPO_VARIAVEL" />
 		</entity>
-		<entity schema="Default" name="TB_STATUS" color="C7F4BE" x="1088" y="272" >
+		<entity schema="Default" name="TB_STATUS" color="C7F4BE" x="1088" y="720" >
 			<column name="ID_STATUS" />
 		</entity>
-		<entity schema="Default" name="TB_TABELA" color="BED3F4" x="48" y="192" >
+		<entity schema="Default" name="TB_TABELA" color="BED3F4" x="48" y="256" >
 			<column name="ID" />
 			<column name="CONJUNTODADOS_PRODUTO" />
 			<column name="OWNER" />
 			<column name="STEWARD" />
 		</entity>
-		<entity schema="Default" name="TB_VALOR_CLASSIFICACAO" color="BED3F4" x="480" y="592" >
+		<entity schema="Default" name="TB_VALOR_CLASSIFICACAO" color="BED3F4" x="480" y="656" >
 			<column name="ID_VALOR_CLASSIFICACAO" />
 			<column name="ID_CLASSIFICACAO" />
 		</entity>
-		<callout x="816" y="864" pointer="Round" >
+		<entity schema="Default" name="TB_VARIAVEL" color="3986C1" x="64" y="80" >
+			<column name="CONJUNTODADOS_PRODUTO" />
+			<column name="TABELA" />
+			<column name="VOLATIL" />
+			<column name="ID_VARIAVEL" />
+		</entity>
+		<callout x="816" y="928" pointer="Round" >
 			<comment><![CDATA[.]]></comment>
 		</callout>
 		<group name="TB_VALOR_CLASSIFICACAO" color="ECF0F7" >
 			<entity schema="Default" name="TB_CLASSIFICACAO_TABELA" />
 			<entity schema="Default" name="TB_CLASSIFICACAO" />
 			<entity schema="Default" name="TB_VALOR_CLASSIFICACAO" />
-			<entity schema="Default" name="TB_CONEXAO" />
 			<entity schema="Default" name="TB_TABELA" />
+			<entity schema="Default" name="TB_CONEXAO" />
 		</group>
 		<group name="TB_REQUISICAO" color="EEF7EC" >
 			<entity schema="Default" name="TB_REQ_TABELA" />
 			<entity schema="Default" name="TB_CAMPO_VARIAVEL" />
 			<entity schema="Default" name="TB_CAMPO_CONEXAO" />
-			<entity schema="Default" name="TB_STATUS" />
 			<entity schema="Default" name="TB_REQ_VARIAVEL" />
 			<entity schema="Default" name="TB_REQ_CONEXAO" />
 			<entity schema="Default" name="TB_CAMPO_TABELA" />
 			<entity schema="Default" name="TB_REQUISICAO" />
+			<entity schema="Default" name="TB_STATUS" />
 		</group>
 		<query id="Query-2537" name="TB_CONEXAO" >
 			<query_table schema="Default" name="TB_CONEXAO" alias="tc" x="48" y="48" >
@@ -286,6 +322,21 @@
 				<column name="MECANICA" />
 				<column name="FREQUENCIA" />
 				<column name="MODO_ESCRITA" />
+			</query_table>
+		</query>
+		<query id="Query-719" name="TB_VARIAVEL" >
+			<query_table schema="Default" name="TB_VARIAVEL" alias="tv" x="48" y="48" >
+				<column name="CONJUNTODADOS_PRODUTO" />
+				<column name="TABELA" />
+				<column name="NOME_CAMPO" />
+				<column name="TIPO_CAMPO" />
+				<column name="TIPO_PESSOA" />
+				<column name="DESCRICAO_CAMPO" />
+				<column name="VOLATIL" />
+				<column name="CH_PRIMARIA" />
+				<column name="NULL" />
+				<column name="UNQ" />
+				<column name="LGPD" />
 			</query_table>
 		</query>
 	</layout>
