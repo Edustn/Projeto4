@@ -336,34 +336,43 @@ app.post('/update-req', urlencodedParser, async(req, res) => {
 	res.setHeader('Access-Control-Allow-Origin', '*'); 
 	let data = JSON.parse(req.body.data);
 
-	for(let requestUpdate in data) {
+	for(let index in data) {
+		let requestUpdate = data[index];
+		console.log(requestUpdate);
 		let idRequest = requestUpdate["id_requisicao"];
 		let columnsAndValues = {
 			"ID_STATUS": requestUpdate["status"]
 		};
 		await DBM.update("TB_REQUISICAO",	columnsAndValues, ("ID_REQUISICAO="+idRequest)).then(() => {
-			for(let reqConexao in requestUpdate["tb_req_conexao"]) {
+			for(let index in requestUpdate["tb_req_conexao"]) {
+				let reqConexao = requestUpdate["tb_req_conexao"][index];
 				columnsAndValues = {
 					"ALTERACAO_GOVERNANCA": reqConexao["alteracao_governanca"]
 				};
+				console.log(reqConexao)
 				DBM.update("TB_REQ_CONEXAO", columnsAndValues, ("ID_REQ_CONEXAO="+reqConexao["id_req_conexao"]));
 			}
 
-			for(let reqTabela in requestUpdate["tb_req_tabela"]) {
+			for(let index in requestUpdate["tb_req_tabela"]) {
+				let reqTabela = requestUpdate["tb_req_tabela"][index];
 				columnsAndValues = {
 					"ALTERACAO_GOVERNANCA": reqTabela["alteracao_governanca"]
 				};
+				console.log(reqTabela);
 				DBM.update("TB_REQ_TABELA", columnsAndValues, ("ID_REQ_TABELA="+reqTabela["id_req_tabela"]));
 			}
 
-			for(let reqVariavel in requestUpdate["tb_req_variavel"]) {
+			for(let index in requestUpdate["tb_req_variavel"]) {
+				let reqVariavel = requestUpdate["tb_req_variavel"][index];
 				columnsAndValues = {
 					"ALTERACAO_GOVERNANCA": reqVariavel["alteracao_governanca"]
 				};
-				DBM.update("TB_REQ_VARIAVEL", columnsAndValues, ("ID_REQ_TABELA="+reqVariavel["id_req_variavel"]));
+				DBM.update("TB_REQ_VARIAVEL", columnsAndValues, ("ID_REQ_VARIAVEL="+reqVariavel["id_req_variavel"]));
 			}
 		});
 	}
+
+	res.end();
 
 	/**
 	 * Update-req receives a JSON with this pattern:
@@ -388,7 +397,7 @@ app.post('/update-req', urlencodedParser, async(req, res) => {
 	 * 					"id_req_variavel": 1,
 	 * 					"alteracao_governanca": "algo"
 	 * 				}
-	 * 			],
+	 * 			]
 	 *		}
 	 * ]
 	 */
