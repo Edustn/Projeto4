@@ -205,12 +205,13 @@ module.exports = class DBManager {
     /**
      * Function that deletes data in gived database
      * @param {String} table 
-     * @param {String} where 
+     * @param {String} where
+     * @param {Array} values
      * @returns {Promise(resolve(queryResult), reject(Error))} 
      */
-    delete(table, where) {
+    delete(table, where, values=[]) {
         const sql = `DELETE FROM ${table} WHERE ${where};`;
-        return this.returnDBAsPromise(sql, "run");
+        return this.returnDBAsPromise(sql, "run", values);
     }
 }
 
