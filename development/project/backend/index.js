@@ -402,7 +402,7 @@ app.post('/update-req', urlencodedParser, async(req, res) => {
 
 /**
  * Endpoint that delete data in the TB_TABELA
- * @param {Integer} id
+ * @param {String} id
  */
 app.post('/remove-table', urlencodedParser, async(req, res) => {
 	res.statusCode = 200;
