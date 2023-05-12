@@ -66,15 +66,13 @@
 		"VARIAVEL": [{
 			"NOME_CAMPO": "ALGO",
 			"TIPO_CAMPO": "SOMETHING",
-			"TAMANHO_CAMPO": "9",
 			"TIPO_PESSOA": "PJ",
 			"DESCRICAO_CAMPO": "SIM",
+			"VOLATIL": "N",
 			"CH_PRIMARIO": "N",
 			"NULL": "N",
 			"UNQ": "N",
-			"LGPD": "G",
-			"REGRA_CRIACAO": "nananan",
-			"INDICADOR_AJUSTE_NOMENCLATURA_TABELA": "N"
+			"LGPD": "G"
 		}],
 		"CLASSIFICACAO": {
 			"ID_VALOR_CLASSIFICACAO": "TXT"

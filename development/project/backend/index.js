@@ -39,8 +39,8 @@ app.post('/insert-req', async (req, res) => {
 			request['id_tabela'], request['user'], 
 			request['status']
 		];
-		DBM.insertReturningTheInsertedDataID("TB_REQUISICAO", columns, values).then(async (result) => {
-			let tbRequisicaoId = result[0];
+		DBM.insert("TB_REQUISICAO", columns, values).then(async () => {
+			let tbRequisicaoId = request['id_tabela'];
 			for (let reqsTabela of request["reqs_tabela"]) {
 				columns = ["ID_REQUISICAO", "ID_CAMPO_TABELA", "ALTERACAO"];
 				values = [tbRequisicaoId, reqsTabela['id_campo_tabela'], reqsTabela['alteracao']];
@@ -61,6 +61,39 @@ app.post('/insert-req', async (req, res) => {
 		});
 	}
 	res.end();
+
+	/**
+	 * The data JSON should be in this pattern:
+	 * [
+	 *		{
+	 *			"id_tabela": "autmato",
+	 *			"user": "juninho",
+	 *			"status": 0,
+	 *			"reqs_tabela": [{
+	 *				"id_campo_tabela": 1,
+	 *				"alteracao": " t"
+	 *			}],
+	 *			"reqs_variavel": [{
+	 *					"id_campo_variavel": 4,
+	 *					"alteracao": " "
+	 *				},
+	 *				{
+	 *					"id_campo_variavel": 4,
+	 *					"alteracao": " "
+	 *				}
+	 *			],
+	 *			"reqs_conexao": [{
+	 *					"id_campo_conexao": 4,
+	 *					"alteracao": ""
+	 *				},
+	 *				{
+	 *					"id_campo_conexao": 4,
+	 *					"alteracao": ""
+	 *				}
+	 *			]
+	 *		}
+	 *	]
+	 */
 });
 
 
@@ -136,6 +169,60 @@ app.post('/insert-tb', async (req, res) => {
 		});
 	}
 	res.end();
+
+	/**
+	 * This insert receives a JSON that should be in this pattern:
+	 * [
+	 *		{
+	 *			"ID": "database.tabela2",
+	 *			"CONJUNTODADOS_PRODUTO": "Engenharia de Dados",
+	 *			"ID_TABELA": "AWS.CLOUDTRAIL_AWSLOGS_TEMP",
+	 *			"TABELA": "CLOUDTRAIL_AWSLOGS_TEMP",
+	 *			"CONTEUDO_TABELA": "Tabela contém log de eventos do ambiente do Data Lake.",
+	 *			"CRITICIDADE_TABELA": null,
+	 *			"DADOS_SENSIVEIS": null,
+	 *			"DEFASAGEM": null,
+	 *			"DATABASE": "DB_PAN_DL_CURATED",
+	 *			"CAMINHO": "s3://pansegs3bucketcloudtrailprod/awslogs/135628704092/cloudtrail/us-east-1/2022/05/06/",
+	 *			"SCRIPTS_ALIMENTACAO": "-",
+	 *			"ENG_INGESTAO": "-",
+	 *			"OWNER": "Samir Migliani",
+	 *			"STEWARD": "Rafael Cordeiro de Araujo",
+	 *			"INDICADORAJUSTENOMENCLATURATABELA": "S",
+	 *			"LINK_SOL_ACESSO": null,
+	 *			"LINK_REPORTAR_ERRO": null,
+	 *			"RANKING_GOVERNANCA": null,
+	 *			"QTD_VIZUALIZACAO": null,
+	 *			"CONEXAO": [{
+	 *				"ORDEM_ORIGEM": 1,
+	 *				"TABELA_ORIGEM": null,
+	 *				"SISTEMA_ORIGEM": null,
+	 *				"SERVIDOR_ORIGEM": null,
+	 *				"DATABASE_ORIGEM": null,
+	 *				"SCHEMA_ORIGEM": null,
+	 *				"TIPO_CONEXAO": null,
+	 *				"REPOSITORIO": null,
+	 *				"MECANICA": null,
+	 *				"FREQUENCIA": null,
+	 *				"MODO_ESCRITA": null
+	 *			}],
+	 *			"VARIAVEL": [{
+	 *				"NOME_CAMPO": "ALGO",
+	 *				"TIPO_CAMPO": "SOMETHING",
+	 *				"TIPO_PESSOA": "PJ",
+	 *				"DESCRICAO_CAMPO": "SIM",
+	 *				"VOLATIL": "N",
+	 *				"CH_PRIMARIO": "N",
+	 *				"NULL": "N",
+	 *				"UNQ": "N",
+	 *				"LGPD": "G"
+	 *			}],
+	 *			"CLASSIFICACAO": {
+	 *				"ID_VALOR_CLASSIFICACAO": "TXT"
+	 *			}
+	 *		}
+	 *	]
+	 */
 });
 
 
