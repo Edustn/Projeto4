@@ -407,7 +407,7 @@ app.post('/update-req', urlencodedParser, async(req, res) => {
 app.post('/remove-table', urlencodedParser, async(req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); 
-	let id = res.body.id;
+	let id = req.body.id;
 	await DBM.delete("TB_TABELA", ("ID=" + id)).then(async () => {
 		await DBM.delete("TB_CONEXAO", ("ID=" + id));
 		await DBM.delete("TB_VARIAVEL", ("TABELA=" + id));
@@ -424,7 +424,7 @@ app.post('/remove-table', urlencodedParser, async(req, res) => {
 app.post('/remove-connection', urlencodedParser, async(req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); 
-	let id = res.body.id;
+	let id = req.body.id;
 	await DBM.delete("TB_CONEXAO", ("ID_CONEXAO=" + id));
 	res.end();
 });
@@ -437,7 +437,7 @@ app.post('/remove-connection', urlencodedParser, async(req, res) => {
 app.post('/remove-variable', urlencodedParser, async(req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); 
-	let id = res.body.id;
+	let id = req.body.id;
 	await DBM.delete("TB_VARIAVEL", ("ID_VARIAVEL=" + id));
 	res.end();
 });
@@ -450,7 +450,7 @@ app.post('/remove-variable', urlencodedParser, async(req, res) => {
 app.post('/remove-classification', urlencodedParser, async(req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); 
-	let id = res.body.id;
+	let id = req.body.id;
 	await DBM.delete("TB_CLASSIFICACAO_TABELA", ("ID_CLASSIFICACAO_TABELA=" + id));
 	res.end();
 });
