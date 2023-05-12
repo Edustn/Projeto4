@@ -39,8 +39,8 @@ app.post('/insert-req', urlencodedParser, async (req, res) => {
 			request['id_tabela'], request['user'], request['justify'],
 			request['status']
 		];
-		DBM.insert("TB_REQUISICAO", columns, values).then(async () => {
-			let tbRequisicaoId = request['id_tabela'];
+		DBM.insertReturningTheInsertedDataID("TB_REQUISICAO", columns, values).then(async (result) => {
+			let tbRequisicaoId = result[0]["last_insert_rowid()"];
 			for (let reqsTabela of request["reqs_tabela"]) {
 				columns = ["ID_REQUISICAO", "ID_CAMPO_TABELA", "ALTERACAO"];
 				values = [tbRequisicaoId, reqsTabela['id_campo_tabela'], reqsTabela['alteracao']];
@@ -287,13 +287,16 @@ app.get('/requests', async (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	let status = req.query.status;
-	let sql = "select * from TB_REQUISICAO" + " where STATUS=?";
-	await DBM.select(sql, [status]).then(async (result) => {
-		let response = result[0];
-		let id = response["ID_REQUISICAO"];
-		response["CONEXAO"] = await DBM.select("select * from TB_REQ_CONEXAO where ID_REQUISICAO=?", [id]);
-		response["VARIAVEL"] = await DBM.select("select * from TB_REQ_VARIAVEL where ID_REQUISICAO=?", [id]);
-		response["TABELA"] = await DBM.select("select * from TB_REQ_TABELA where ID_REQUISICAO=?", [id]);	
+	let sql = "select * from TB_REQUISICAO" + " where ID_STATUS=?";
+	await DBM.select(sql, [status]).then(async (results) => {
+		let response = [];
+		for(let index in results) {
+			let id = results[index]["ID_REQUISICAO"];
+			results[index]["CONEXAO"] = await DBM.select("select * from TB_REQ_CONEXAO where ID_REQUISICAO=?", [id]);
+			results[index]["VARIAVEL"] = await DBM.select("select * from TB_REQ_VARIAVEL where ID_REQUISICAO=?", [id]);
+			results[index]["TABELA"] = await DBM.select("select * from TB_REQ_TABELA where ID_REQUISICAO=?", [id]);	
+			response.push(results[index]);
+		}
 		res.json(response);
 	});
 });
