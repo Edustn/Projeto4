@@ -312,8 +312,9 @@ app.get('/request', async (req, res) => {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	let id = req.query.id;
 	let sql = "select * from TB_REQUISICAO" + " where ID_REQUISICAO=?";
-	await DBM.select(sql, [id]).then(async (id) => {
-		let response = result[0];
+	await DBM.select(sql, [id]).then(async (request) => {
+		let response = request[0];
+		let id = request[0]["ID_REQUISICAO"];
 		response["CONEXAO"] = await DBM.select("select * from TB_REQ_CONEXAO where ID_REQUISICAO=?", [id]);
 		response["VARIAVEL"] = await DBM.select("select * from TB_REQ_VARIAVEL where ID_REQUISICAO=?", [id]);
 		response["TABELA"] = await DBM.select("select * from TB_REQ_TABELA where ID_REQUISICAO=?", [id]);	
