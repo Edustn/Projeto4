@@ -28,15 +28,15 @@ app.use(express.json());
  * Endpoint that insert new data in TB_REQUISICAO
  * @param {Object} data 
  */
-app.post('/insert-req', async (req, res) => {
+app.post('/insert-req', urlencodedParser, async (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	let data = JSON.parse(req.body.data);
 	
 	for (let request of data) {
-		let columns = ['ID_TABELA', 'USUARIO', 'ID_STATUS'];
-		let values = [
-			request['id_tabela'], request['user'], 
+		let columns = ['ID_TABELA', 'USUARIO', 'JUSTIFICATIVA', 'ID_STATUS'];
+		let values = [ 
+			request['id_tabela'], request['user'], request['justify'],
 			request['status']
 		];
 		DBM.insert("TB_REQUISICAO", columns, values).then(async () => {
@@ -68,6 +68,7 @@ app.post('/insert-req', async (req, res) => {
 	 *		{
 	 *			"id_tabela": "autmato",
 	 *			"user": "juninho",
+	 *			"justify": "justify",
 	 *			"status": 0,
 	 *			"reqs_tabela": [{
 	 *				"id_campo_tabela": 1,
@@ -101,7 +102,7 @@ app.post('/insert-req', async (req, res) => {
  * Endpoint that insert new data in TB_TABELA
  * @param {Object} data 
  */
-app.post('/insert-tb', async (req, res) => {
+app.post('/insert-tb', urlencodedParser, async (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	let data = JSON.parse(req.body.data);
@@ -142,14 +143,14 @@ app.post('/insert-tb', async (req, res) => {
 
 			for (let TbVariavel of insert["VARIAVEL"]) {
 				columns = [
-					"CONJUNTO_DADOS", "TABELA", "NOME_CAMPO", "TIPO_CAMPO", "TIPO_PESSOA", "DESCRICAO_CAMPO", "VOLATIL", 
-					"CH_PRIMARIA", "CH_PRIMARIA", "NULL", "UNQ", "LGPD"
+					"CONJUNTODADOS_PRODUTO", "TABELA", "NOME_CAMPO", "TIPO_CAMPO", "TIPO_PESSOA", 
+					"DESCRICAO_CAMPO", "VOLATIL", "CH_PRIMARIA", "ACCEPT_NULL", "UNQ", "LGPD"
 				];
 					
 				values = [
 					insert['CONJUNTODADOS_PRODUTO'], tbTabelaId, TbVariavel['NOME_CAMPO'], TbVariavel['TIPO_CAMPO'], 
-					TbVariavel['TIPO_PESSOA'], TbVariavel['DESCRICAO_CAMPO'], TbVariavel['VOLATIL'], TbVariavel['CH_PRIMARIA'],
-					TbVariavel['NULL'], TbVariavel['UNQ'], TbVariavel['LGPD']
+					TbVariavel['TIPO_PESSOA'], TbVariavel['DESCRICAO_CAMPO'], TbVariavel['VOLATIL'], 
+					TbVariavel['CH_PRIMARIA'], TbVariavel['ACCEPT_NULL'], TbVariavel['UNQ'], TbVariavel['LGPD']
 				];
 			
 				await DBM.insert("TB_VARIAVEL", columns, values);
@@ -217,9 +218,11 @@ app.post('/insert-tb', async (req, res) => {
 	 *				"UNQ": "N",
 	 *				"LGPD": "G"
 	 *			}],
-	 *			"CLASSIFICACAO": {
-	 *				"ID_VALOR_CLASSIFICACAO": "TXT"
-	 *			}
+	 *			"CLASSIFICACAO": [
+	 *				{
+	 *					"ID_VALOR_CLASSIFICACAO": "TXT"
+	 *				}
+	 *			]
 	 *		}
 	 *	]
 	 */

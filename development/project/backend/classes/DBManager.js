@@ -117,16 +117,13 @@ module.exports = class DBManager {
         let sql = `INSERT INTO ${table}(${columns.join(", ")}) VALUES `;
         let placeholders = [];
         for(let value of values) {
-            let placeholderArray;
-            if(typeof value == Array) {
-                placeholderArray = new Array(value.length);
-            } else {
-                placeholderArray = new Array(1);
-            }
+            let placeholderArray = new Array(columns.length);
             placeholderArray.fill("?");
             placeholders.push(`(${placeholderArray.join(", ")})`);
-            
-        };
+            if (typeof value != Array) {
+                break;
+            }
+        }
         sql += placeholders.join(", ");
         sql += ";";
         return sql;
@@ -159,7 +156,7 @@ module.exports = class DBManager {
      * Function that do a insert in the given database and table. Besides it return the lastID as 
      * the promise value
      * @param {*} table 
-     * @param {*} columns 
+     * @param {*} columns
      * @param {*} values 
      */
     insertReturningTheInsertedDataID(table, columns, values) {
