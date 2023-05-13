@@ -2,9 +2,9 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "project made to be a data catalog",
-  "main": "./backend/app_41.js",
+  "main": "./backend/index.js",
   "scripts": {
-    "test": "nodemon ./backend/app_41.js"
+    "test": "nodemon ./backend/index.js"
   },
   "repository": {
     "type": "git",
