@@ -297,7 +297,7 @@ app.get('/search', async (req, res) => {
 			" LEFT JOIN TB_VALOR_CLASSIFICACAO ON TB_CLASSIFICACAO_TABELA.ID_VALOR_CLASSIFICACAO = TB_VALOR_CLASSIFICACAO.ID_VALOR_CLASSIFICACAO  " +
 			" LEFT JOIN TB_CLASSIFICACAO ON TB_VALOR_CLASSIFICACAO.ID_CLASSIFICACAO = TB_CLASSIFICACAO.ID_CLASSIFICACAO  " +
 			` where (${wheres}) collate nocase ` +
-			` order by (${orderby}) desc` +
+			` order by (${orderby}) desc, TB_TABELA.RANKING_GOVERNANCA desc` +
 			` limit ${index}, ${maxRows};`; 
 	
 	await DBM.select(sql, valuesArray).then((result) => {
