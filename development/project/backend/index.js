@@ -284,7 +284,7 @@ app.get('/search', async (req, res) => {
 			let step = parseInt(array.length);
 			let weights = (parseInt(array.length) * 10) + step;
 			return array.map(phrase => {
-				weights = (1 * (weights - step));
+				weights = weights - step;
 				return (" (CASE WHEN " + phrase + ` collate nocase THEN ${weights.toFixed(1)} ELSE 0 END)`);
 			}).join(" + ");
 		}).join(" + ");
