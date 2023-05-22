@@ -1,4 +1,4 @@
-const express = require('express');  
+const express = require('express');
 const DBManager = require('./classes/DBManager.js');
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -10,8 +10,7 @@ const hostname = '127.0.0.1';
 const port = 3000;
 const app = express();
 
-
-app.use(express.json());
+app.set('view engine', 'ejs');
 
 
 /**
@@ -246,9 +245,62 @@ app.get('/search', async (req, res) => {
 	let q = req.query.q;
 	let index = req.query.index;
 	let maxRows = req.query.maxRows;
-	let value = "%" + q + "%";
-	let sql = `select * from TB_TABELA where TABELA like ? limit ${index}, ${maxRows}`;
-	await DBM.select(sql, [value]).then((result) => {
+	
+	let words = q.split(" ");
+	words = words.filter((item, index) => words.indexOf(item) === index);
+
+	let values = words.map(word => ("%" + word + "%"));
+	let valuesArray = [
+						...values, ...values, ...values, ...values, ...values,
+						...values, ...values, ...values, ...values, ...values,
+						...values, ...values, ...values
+					].sort();
+
+	valuesArray = valuesArray.concat(valuesArray);
+
+	let comparisons = words.map(word => (
+		[
+			" TB_TABELA.CONTEUDO_TABELA like ?",
+			" TB_TABELA.DATABASE like ?", 
+			" TB_TABELA.TABELA like ?",
+
+			" TB_VALOR_CLASSIFICACAO.VALOR_CLASSIFICACAO like ?",
+			" TB_CLASSIFICACAO.NOME_CLASSIFICACAO like ? ",
+
+			" TB_OWNER_STEWARD.CONJUNTO_DADOS like ?",
+			" TB_OWNER_STEWARD.DATA_STEWARD like ?",
+			" TB_OWNER_STEWARD.DATA_OWNER like ?",
+			" TB_OWNER_STEWARD.SIGLA_CONJUNTO_DE_DADOS like ?",
+
+			" TB_VARIAVEL.TIPO_CAMPO like ?",
+			" TB_VARIAVEL.TIPO_PESSOA like ?",
+			" TB_VARIAVEL.NOME_CAMPO like ?",
+			" TB_VARIAVEL.DESCRICAO_CAMPO like ?" 
+		]
+	));
+
+	let wheres = comparisons.map(word => word.join(" or ")).join(" or ");
+	let orderby = comparisons.map( (array) => {
+			let step = parseInt(array.length);
+			let weights = (parseInt(array.length) * 10) + step;
+			return array.map(phrase => {
+				weights = (1 * (weights - step));
+				return (" (CASE WHEN " + phrase + ` collate nocase THEN ${weights.toFixed(1)} ELSE 0 END)`);
+			}).join(" + ");
+		}).join(" + ");
+		
+	let sql = "select * from TB_TABELA " +
+			" LEFT JOIN TB_VARIAVEL ON TB_TABELA.TABELA = TB_VARIAVEL.TABELA " +
+			" LEFT JOIN TB_OWNER_STEWARD ON TB_TABELA.CONJUNTODADOS_PRODUTO = TB_OWNER_STEWARD.CONJUNTO_DADOS " +
+			" LEFT JOIN TB_CONEXAO ON TB_TABELA.ID = TB_CONEXAO.ID  " +
+			" LEFT JOIN TB_CLASSIFICACAO_TABELA ON TB_TABELA.ID = TB_CLASSIFICACAO_TABELA.ID_TABELA " +
+			" LEFT JOIN TB_VALOR_CLASSIFICACAO ON TB_CLASSIFICACAO_TABELA.ID_VALOR_CLASSIFICACAO = TB_VALOR_CLASSIFICACAO.ID_VALOR_CLASSIFICACAO  " +
+			" LEFT JOIN TB_CLASSIFICACAO ON TB_VALOR_CLASSIFICACAO.ID_CLASSIFICACAO = TB_CLASSIFICACAO.ID_CLASSIFICACAO  " +
+			` where (${wheres}) collate nocase ` +
+			` order by (${orderby}) desc` +
+			` limit ${index}, ${maxRows};`; 
+	
+	await DBM.select(sql, valuesArray).then((result) => {
 		res.json(result);
 	});
 });
@@ -471,3 +523,5 @@ app.post('/remove-classification', urlencodedParser, async(req, res) => {
 app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
   });
+
+
