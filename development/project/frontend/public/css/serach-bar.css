@@ -1,0 +1,41 @@
+body, html{
+    background-color:  transparent;
+    width: 99%;
+    height: 99%;
+    color: black;
+}
+#search-bar{
+    padding: 5px;
+    border: 2px black solid;
+    border-radius: 50px;
+    max-width: 45%;
+    margin: auto;
+    box-shadow: 2px 2px 5px black;
+}
+#search-bar ul{
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 3px;
+
+}
+#search-bar button{
+    border: 0;
+    background: transparent;
+    height: 100%;
+    cursor: pointer;
+}
+#search-input{
+    border: 0;
+    outline: 0;
+    font-size: larger;
+    background: transparent;
+    height: 30px;
+    min-width: 575px;
+}
+#filter-box{
+    display: none;
+    border-radius: 30px;
+    border: #26b6f9 5px solid;
+    box-shadow: 2px 2px 5px black;
+}
