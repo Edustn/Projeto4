@@ -12,6 +12,14 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
+app.use(express.static("assets/"));
+
+app.get("/", (req, res) => {
+	res.statusCode = 200;
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.render('partials/results');
+});
+
 
 /**
  * DESCRIPTION
