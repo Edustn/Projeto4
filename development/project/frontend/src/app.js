@@ -14,8 +14,8 @@ app.set('view engine','ejs');
 
 
 app.get("/", (req, res) =>{
-    res.render("../frontend/views/search.ejs")
-})
+    res.render("../frontend/views/tables.ejs")
+});
 
 
 function check(sql){

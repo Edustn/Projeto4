@@ -1,0 +1,17 @@
+#header{
+    display: flex;
+}
+.search{
+    margin: 0;
+    min-width: 40%;
+    margin: 0 auto;
+}
+#div-logo{
+    width: 50%;
+}
+#logo{
+    margin: 0  20%;
+    font-size: 72px;
+    width: 100%;
+    text-shadow: 3px 3px 10px gray;
+}

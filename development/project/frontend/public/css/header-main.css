@@ -1,0 +1,49 @@
+:root{
+    --main-margin: 0;
+    --border-top-main: 1.5px solid #07B2FD;
+}
+
+*{
+    margin: var(--main-margin);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html, body{
+    width: 100%;
+    height: 100%;
+}
+
+.top-main{
+    display: flex;
+}
+.name-infos ul{
+    list-style: none;
+}
+.db-name{
+    font-weight: 200;
+    font-size: larger;
+}
+.tb-name{
+    font-weight: 700;
+    font-size: x-large;
+}
+.nav-bat-top-main section{
+    display: flex;
+}
+.nav-bat-top-main div{
+    margin:0 5px;
+    padding: 5px;
+    border-left: var(--border-top-main);
+    border-top: var(--border-top-main);
+    border-right: var(--border-top-main);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.nav-bat-top-main-text{
+    margin: 5px;
+    cursor: pointer;
+}
+hr{
+    border:var(--border-top-main);
+}

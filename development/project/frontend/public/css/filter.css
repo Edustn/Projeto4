@@ -8,10 +8,9 @@ body, html{
     height: 99%;
     font-family: "Montserrat", sans-serif;
 }
-
 #filter-box{
     background-color: var(--main-color);
-    max-width: 45%;
+    max-width: 100%;
     margin: auto;
 }
 #filter-box ul {
