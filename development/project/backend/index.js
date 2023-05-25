@@ -12,12 +12,12 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
-app.use(express.static("assets/"));
+app.use(express.static("public/"));
 
 app.get("/", (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.render();
+	res.render("../views/index.ejs");
 });
 
 
@@ -339,7 +339,7 @@ app.get('/search', async (req, res) => {
 
 
 			res.statusCode = 200;
-			res.render('partials/results', {
+			res.render('results', {
 				results: result, 
 				qtdRows: (qtdConsultRows - 1),
 				totalIndex: totalIndex,
