@@ -17,7 +17,7 @@ app.use(express.static("assets/"));
 app.get("/", (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.render('partials/results');
+	
 });
 
 
@@ -248,7 +248,6 @@ app.post('/insert-tb', urlencodedParser, async (req, res) => {
  * @returns {JSON}
  */
 app.get('/search', async (req, res) => {
-	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	let q = req.query.q;
 	let index = req.query.index;
@@ -265,6 +264,9 @@ app.get('/search', async (req, res) => {
 					].sort();
 
 	valuesArray = valuesArray.concat(valuesArray);
+	
+	valuesArray.push(index);
+	valuesArray.push(maxRows);
 
 	let comparisons = words.map(word => (
 		[
@@ -305,11 +307,48 @@ app.get('/search', async (req, res) => {
 			" LEFT JOIN TB_VALOR_CLASSIFICACAO ON TB_CLASSIFICACAO_TABELA.ID_VALOR_CLASSIFICACAO = TB_VALOR_CLASSIFICACAO.ID_VALOR_CLASSIFICACAO  " +
 			" LEFT JOIN TB_CLASSIFICACAO ON TB_VALOR_CLASSIFICACAO.ID_CLASSIFICACAO = TB_CLASSIFICACAO.ID_CLASSIFICACAO  " +
 			` where (${wheres}) collate nocase ` +
-			` order by (${orderby}) desc, TB_TABELA.RANKING_GOVERNANCA desc` +
-			` limit ${index}, ${maxRows};`; 
+			` group by TB_TABELA.ID collate nocase ` +
+			` order by (${orderby}) desc, TB_TABELA.RANKING_GOVERNANCA desc`;
+
+	let sqlWithLimit = sql + ` limit ?, ?;`; 
 	
-	await DBM.select(sql, valuesArray).then((result) => {
-		res.json(result);
+	await DBM.select(sqlWithLimit, valuesArray).then(async (result) => {
+		let newSql = `select count(*) as 'qtdRows' FROM (${sql}) T;`
+		valuesArray.pop();
+		valuesArray.pop();
+		await DBM.select(newSql, valuesArray).then((qtdRows) => {
+			let qtdConsultRows = qtdRows[0]['qtdRows'];
+			let totalIndex = qtdConsultRows / maxRows;
+			let previousIndexs = index - 1;
+			let nextIndexs = totalIndex - index;
+			
+			if (previousIndexs > 2) {
+				previousIndexs = 2;
+			} else if (previousIndexs < 0) {
+				previousIndexs = 0;
+			}
+
+			if (nextIndexs > 2) {
+				nextIndexs = 2; 
+			} else if (nextIndexs < 0) {
+				nextIndexs = 0;
+			}
+
+			res.statusCode = 200;
+			res.render('partials/results', {results: result, 
+											qtdRows: qtdConsultRows,
+											previousIndexs: previousIndexs,
+											nextIndexs: nextIndexs,
+											index: index
+										});
+		}).catch((error) => {
+			console.log(error);
+			res.end();
+		});
+		
+	}).catch((error) => {
+		res.statusCode = 500;
+		res.end(error);
 	});
 });
 
@@ -325,7 +364,7 @@ app.get('/table', async (req, res) => {
 	let id = req.query.id;
 	let sql = "select * from TB_TABELA " +
 		"inner join TB_OWNER_STEWARD on " +
-		"TB_TABELA.CONJUNTODADOS_PRODUTO = TB_OWNER_STEWARD.ConjuntodeDados " +
+		"TB_TABELA.CONJUNTODADOS_PRODUTO = TB_OWNER_STEWARD.CONJUNTO_DADOS " +
 		"where ID=?";
 	await DBM.select(sql, [id]).then(async (result) => {
 		let response = result[0];

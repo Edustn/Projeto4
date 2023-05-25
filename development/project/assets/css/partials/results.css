@@ -3,7 +3,7 @@
     max-width: 800px;
     min-width: 300px;
     min-height: 70vh;
-    margin: 2rem auto 2rem 6em;
+    margin: 2rem 0 2rem 40px;
 }
 
 .results-container > hgroup h2 {
@@ -25,6 +25,7 @@
 
 .results-container .results .result {
     width: 100%;
+    margin: 3rem 0;
 }
 
 .results-container .result hgroup span {
@@ -57,6 +58,7 @@
     display: flex;
     justify-content: space-between;
     color: #D9D9D9;
+    margin-top: 5rem;
 }
 
 .results-container .exhibition label {
@@ -90,6 +92,6 @@
     margin-left: 4px;
 }
 
-.results-container .exhibition  button.actual-page {
+.results-container .exhibition button.actual-page {
     color: blue;
 }
