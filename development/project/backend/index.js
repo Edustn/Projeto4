@@ -331,7 +331,8 @@ app.get('/search', async (req, res) => {
 											qtdRows: qtdConsultRows,
 											totalIndex: totalIndex,
 											index: index,
-											query: q
+											query: q,
+											maxRows: maxRows
 										});
 		}).catch((error) => {
 			console.log(error);

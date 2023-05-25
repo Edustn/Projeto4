@@ -16,7 +16,7 @@
         <main class="results-container">
             <hgroup>
                 <h2>Resultados para: <strong id="search-query"><%= query %></strong></h2>
-                <p>Exibindo <span id="qtdMaxRows"></span> de <%= qtdRows %> resultados</p>
+                <p>Exibindo <span id="qtdMaxRows"><%= maxRows %></span> de <%= qtdRows %> resultados</p>
             </hgroup>
             <article class="results">
                 <% results.forEach((result) => { %>
@@ -38,13 +38,13 @@
                 <% }); %>
             </article>
             <form action="/search" method="get" id="change-exhibition" class="exhibition">
-                <input type="text" hidden id="q" name="q">
-                <input type="text" hidden id="index-exhibition" name="index">
+                <input type="text" hidden id="q" name="q" value="<%= query %>">
+                <input type="text" hidden id="index-exhibition" name="index" value="<%= index %>">
 
                 <fieldset>
                     <label for="maxRows">EXIBIR</label>
                     <select name="maxRows" id="maxRows">
-                        <option selected value="20">20</option>
+                        <option value="20">20</option>
                         <option value="40">40</option>
                         <option value="60">60</option>
                         <option value="80">80</option>
@@ -63,7 +63,7 @@
                         <button type="button" class="button-change-index" name="index" aria-label="Ir para a página <%= previousIndex %>" value="<%= previousIndex %>"><%= previousIndex %></button>
                     <% } %>
 
-                    <button type="button" class="button-change-index" name="index" aria-label="Ir para a página <%= index %>" value="<%= index %>"><%= index %></button>
+                    <button type="button" class="button-change-index actual-page" name="index" aria-label="Ir para a página <%= index %>" value="<%= index %>"><%= index %></button>
 
                     <% for(let i = 1; i <= 2; i++) { %>
                         <% let nextIndex = (index + i); %>
