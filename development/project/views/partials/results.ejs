@@ -16,10 +16,12 @@
         <main class="results-container">
             <hgroup>
                 <h2>Resultados para: <strong id="search-query"><%= query %></strong></h2>
-                <p>Exibindo <span id="qtdMaxRows"><%= maxRows %></span> de <%= qtdRows %> resultados</p>
+                <p>Exibindo <span id="qtdMaxRows"><%= results.length %></span> de <%= qtdRows %> resultados</p>
             </hgroup>
             <article class="results">
                 <% results.forEach((result) => { %>
+                <% console.log(); %>
+                <% console.log(result); %>
                 <section class="result">                    
                     <a href='/table?id=<%= result.ID %>''>
                         <hgroup>
@@ -28,7 +30,7 @@
                                 <h3><%= result.TABELA %></h3>
                                 <% if (String(result.DADOS_SENSIVEIS).trim().toLowerCase() == 's') { %>
                                 <!--Renders an image if it have a sensible content <img src="" alt="Dados sensíveis"></img>-->
-                                <img src="/img/sensitive-content.svg" alt="Imagem que informa que essa tabela contém dados sensíveis" />
+                                <img src="/img/sensitive-content.svg" title="Essa tabela contém dados sensíveis" alt="Imagem que informa que essa tabela contém dados sensíveis" />
                                 <% } %>
                             </div>
                         </hgroup>

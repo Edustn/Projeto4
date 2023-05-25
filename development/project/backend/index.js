@@ -253,10 +253,16 @@ app.get('/search', async (req, res) => {
 	let index = req.query.index;
 	let maxRows = req.query.maxRows;
 	
+	/**
+	 * To the search mecanism works, we split which word in the query (q)
+	 */
 	let words = q.split(" ");
 	words = words.filter((item, index) => words.indexOf(item) === index);
-
 	let values = words.map(word => ("%" + word + "%"));
+
+	/**
+	 * For each comparison in the comparison Array have a ...values in valuesArray.
+	 */
 	let valuesArray = [
 						...values, ...values, ...values, ...values, ...values,
 						...values, ...values, ...values, ...values, ...values,
@@ -264,9 +270,6 @@ app.get('/search', async (req, res) => {
 					].sort();
 
 	valuesArray = valuesArray.concat(valuesArray);
-	
-	valuesArray.push(index);
-	valuesArray.push(maxRows);
 
 	let comparisons = words.map(word => (
 		[
@@ -290,12 +293,16 @@ app.get('/search', async (req, res) => {
 	));
 
 	let wheres = comparisons.map(word => word.join(" or ")).join(" or ");
+
+	/**
+	 * In the orderby array the first comparisons items have more weight than last ones.
+	 */
 	let orderby = comparisons.map( (array) => {
-			let step = parseInt(array.length);
-			let weights = (parseInt(array.length) * 10) + step;
+			let step = 6;
+			let weights = (parseInt(array.length) * step) + step;
 			return array.map(phrase => {
 				weights = weights - step;
-				return (" (CASE WHEN " + phrase + ` collate nocase THEN ${weights.toFixed(1)} ELSE 0 END)`);
+				return (" (CASE WHEN " + phrase + ` collate nocase THEN ${weights.toFixed(0)} ELSE 0 END)`);
 			}).join(" + ");
 		}).join(" + ");
 		
@@ -312,28 +319,34 @@ app.get('/search', async (req, res) => {
 
 	let sqlWithLimit = sql + ` limit ?, ?;`; 
 	
-	await DBM.select(sqlWithLimit, valuesArray).then(async (result) => {
+	await DBM.select(sqlWithLimit, valuesArray.concat([index, maxRows])).then(async (result) => {
 		let newSql = `select count(*) as 'qtdRows' FROM (${sql}) T;`
-		valuesArray.pop();
-		valuesArray.pop();
+
 		await DBM.select(newSql, valuesArray).then((qtdRows) => {
 			index = parseInt(index)
 			let qtdConsultRows = qtdRows[0]['qtdRows'];
+			/**
+			 * The nexts verification are necessary to show a valid index in frontend;
+			 */
 			let totalIndex = Math.ceil(parseInt(qtdConsultRows) / parseInt(maxRows));
 			if (index > totalIndex) {
 				index = totalIndex;
-			} else if (index < 1) {
+			}
+			if (index < 1) {
 				index = 1;
 			}
 
+
+
 			res.statusCode = 200;
-			res.render('partials/results', {results: result, 
-											qtdRows: qtdConsultRows,
-											totalIndex: totalIndex,
-											index: index,
-											query: q,
-											maxRows: maxRows
-										});
+			res.render('partials/results', {
+				results: result, 
+				qtdRows: qtdConsultRows,
+				totalIndex: totalIndex,
+				index: index,
+				query: q,
+				maxRows: maxRows
+			});
 		}).catch((error) => {
 			console.log(error);
 			res.end();
@@ -361,8 +374,9 @@ app.get('/table', async (req, res) => {
 		"where ID=?";
 	await DBM.select(sql, [id]).then(async (result) => {
 		let response = result[0];
+		let table = response["TABELA"];
 		response["CONEXAO"] = await DBM.select("select * from TB_CONEXAO where ID=?", [id]);
-		response["VARIAVEL"] = await DBM.select("select * from TB_VARIAVEL where TABELA=?", [id]);
+		response["VARIAVEL"] = await DBM.select("select * from TB_VARIAVEL where TABELA=?", [table]);
 		sql = "select * from TB_CLASSIFICACAO_TABELA where ID_TABELA=?";
 		response["CLASSIFICACAO_TABELA"] = await DBM.select(sql, [id]);		
 		res.json(response);
