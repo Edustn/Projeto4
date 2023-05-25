@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/menu.css">
+    <link rel="stylesheet" href="../css/serach-bar.css">
+    <link rel="stylesheet" href="../css/filter.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/header-main.css">
+    <link rel="stylesheet" href="../css/table.css">
+    <title>Document</title>
+</head>
+<body>
+    <aside id="sideBar">
+        <button onclick="closeMenu()" class="close-buttom">Fechar</button>
+        <ul class="menu-itens">
+            <li>
+                <a href="index.html">
+                    <img src="../imagens/🦆 icon _home 2_.png" alt=""><label for="">PÁGINA INICIAL</label>
+                </a>          
+            </li>
+            <li>
+                <a href="#">
+                    <img src="../imagens/🦆 icon _book saved_.png" alt=""><label for="">TUTORIAS</label>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="../imagens/🦆 icon _note_.png" alt=""><label for="">REPORTES</label>
+                </a> 
+            </li>
+            <li>
+                <a href="#">
+                    <img src="../imagens/🦆 icon _verify_.png" alt=""><label for="">SOLICITAÇÃO DE ACESSO</label>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="../imagens/Group 3.png" alt=""><label for="">TEMA ESCURO</label>
+                </a>
+            </li>
+        </ul>
+    </aside>
+    <header id="header">
+        <div id="main-menu">
+            <nav>
+                <button onclick="openMenu()" class="menu-buttom">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </button> 
+            </nav>
+        </div>
+        <div id="div-logo">
+            <h1 id="logo">PANGEIA</h1>
+        </div>
+        <div class="search">
+            <form action="../search" method="get" id="search-bar">
+                <ul>
+                    <li>
+                        <button type="submit"><img src="../imagens/search-icon.jpg" alt="" id="search-img"></button>
+                    </li>
+                    <li>
+                        <input type="text" name="search" id="search-input" required autocomplete="off" tabindex="0">
+                    </li>
+                    <li>
+                        <button type="button" id="filter-button"><img src="../imagens/filter-icon.jpg" alt="" id="filter-img" onclick="viewMode()"></button>
+                    </li>
+                </ul>
+            </form>
+            <section id="filter-box">
+                <form action="" method="get">
+                    <ul class="filter-itens">
+                        <li>
+                            <label for="">DATABASE</label>
+                            <div>
+                                <select name="db" id="">
+                                    <option value="">todos</option>
+                                    <option value="CURATED">CURATED</option>
+                                    <option value="LEGACY">LAGACY</option>
+                                    <option value="QUALITY">QUALITY</option>
+                                    <option value="RAW">RAW</option>
+                                    <option value="VAR">VAR</option>
+                                    <option value="SPEC">SPEC</option>
+                                    <option value="NULL">vazio</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">ORIGEM</label>
+                            <div>
+                                <select name="dbOrigin" id="">
+                                    <option value="">todos</option>
+                                    <option value="">AWS</option>
+                                    <option value="">ORACLE</option>
+                                    <option value="">SQL SERVER</option>
+                                    <option value="">ECOSSISTEMA OB</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">CONJUNTO DADOS</label>
+                            <div>
+                                <select name="" id="">
+                                    <option value="">todos</option>
+                                    <option value="ADQ">Adquirência</option>
+                                    <option value="ANL">Analytics</option>
+                                    <option value="ATE">Atendimento</option>
+                                    <option value="AUD">Auditoria</option>
+                                    <option value="BCD">Banco Digital</option>
+                                    <option value="BRX">Bureaux</option>
+                                    <option value="CAP">Captação</option>
+                                    <option value="CAD">Cadastro</option>
+                                    <option value="POS">Cadastro Positivo</option>
+                                    <option value="CHE">Cheque Especial</option>
+                                    <option value="CRT">Cartões</option>
+                                    <option value="CPC">Compliance</option>
+                                    <option value="CMP">Compras</option>
+                                    <option value="CGO">Consignado</option>
+                                    <option value="CNT">Contábel</option>
+                                    <option value="CRE">Créditos</option>
+                                    <option value="CRM">CRM</option>
+                                    <option value="CPE">Empréstimo Pessoal</option>
+                                    <option value="END">Engeharia de Dados</option>
+                                    <option value="FMR">Formação</option>
+                                    <option value="FRD">Fraudes</option>
+                                    <option value="GTI">Governança de TI</option>
+                                    <option value="IES">Informações Estratégicas</option>
+                                    <option value="INV">Investimentos</option>
+                                    <option value="JUR">Jurídico</option>
+                                    <option value="MKT">Marketing</option>
+                                    <option value="MKP">Marketplace</option>
+                                    <option value="OPB">Open Finance</option>
+                                    <option value="OPE">Operações</option>
+                                    <option value="PES">Pessoas</option>
+                                    <option value="PDL">PDL</option>
+                                    <option value="COB">Recuperação de Crédito</option>
+                                    <option value="RDT">Reserva de Dados Técnicos</option>
+                                    <option value="RIS">Riscos</option>
+                                    <option value="SEG">Seguros</option>
+                                    <option value="SDP">Saúde</option>
+                                    <option value="VCL">Veículos</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">DADOS SENSÍVEIS</label>
+                            <div>
+                                <select name="DS" id="">
+                                    <option value="">todos</option>
+                                    <option value="AUTOMATICA">Contém</option>
+                                    <option value="MANUAL">Não Contém</option>
+                                </select>
+                            </div>
+                        </li>
+                    </ul>
+                </form> 
+            </section>
+        </div>         
+    </header>
+    <div class="top-body">
+        <section class="top">
+            <div class="name-infos">
+                <ul>
+                    <li>
+                        <h3 class="db-name">DATABASE:</h3>
+                    </li>
+                    <li>
+                        <h2 class="tb-name">TB_BDAW_UAJRA</h2>
+                    </li>
+                </ul>
+            </div>
+            <div class="content-level">
+                <figure>
+                    <img src="../imagens/Senstive 2.svg" alt="">
+                </figure>
+            </div>
+            <label for="">Contém dados sensíveis</label>
+        </section>
+        <nav class="nav-bat-top-main">
+            <section>
+                <div class="nav-bat-top-butom" id="over-view">
+                    <a class="nav-bat-top-main-text">Visão Geral</a>
+                </div>
+                <div class="nav-bat-top-butom" id="table-view">
+                    <a class="nav-bat-top-main-text">Tabela</a>
+                </div>
+                <div class="nav-bat-top-butom" id="datas-view">
+                    <a class="nav-bat-top-main-text">Amostra de Dados</a>
+                </div>
+            </section>
+            <hr>
+        </nav>
+    </div>
+    <div class="top-desc">
+        <section class="desc-area">
+            <h3 class="desc-table">Descrição da Tabela:</h3>
+            <p class="desc-table-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio in aut optio fuga nihil eligendi ipsam cumque praesentium quidem! Iure rem, minima eaque natus velit odio ducimus esse veniam dolores.</p>
+        </section>
+        <button type="button" class="button-report">
+            <figure><img src="/imagens/button_report.svg" alt=""></figure>
+        </button>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ÍNDICE</th>
+                <th>NOME DO CAMPO</th>
+                <th>DESCRIÇÃO DO CAMPO</th>
+                <th>REGRA DE CRIAÇÃO</th>
+                <th>TIPO DO CAMPO</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-row">
+                <td>adaw</td>
+                <td>wdawd</td>
+                <td>dawda</td>
+                <td>dawdaw</td>
+                <td>dwada</td>
+            </tr>
+            <tr class="table-row">
+                <td>adaw</td>
+                <td>wdawd</td>
+                <td>dawda</td>
+                <td>dawdaw</td>
+                <td>dwada</td>
+            </tr>
+            <tr class="table-row">
+                <td>adaw</td>
+                <td>wdawd</td>
+                <td>dawda</td>
+                <td>dawdaw</td>
+                <td>dwada</td>
+            </tr>
+            <tr class="table-row">
+                <td>adaw</td>
+                <td>wdawd</td>
+                <td>dawda</td>
+                <td>dawdaw</td>
+                <td>dwada</td>
+            </tr>
+            <tr class="table-row">
+                <td>adaw</td>
+                <td>wdawd</td>
+                <td>dawda</td>
+                <td>dawdaw</td>
+                <td>dwada</td>
+            </tr>
+            <tr class="table-row">
+                <td>adaw</td>
+                <td>wdawd</td>
+                <td>dawda</td>
+                <td>dawdaw</td>
+                <td>dwada</td>
+            </tr>
+            <tr class="table-row">
+                <td>adaw</td>
+                <td>wdawd</td>
+                <td>dawda</td>
+                <td>dawdaw</td>
+                <td>dwada</td>
+            </tr>
+            <tr class="table-row">
+                <td>adaw</td>
+                <td>wdawd</td>
+                <td>dawda</td>
+                <td>dawdaw</td>
+                <td>dwada</td>
+            </tr>
+            <tr class="table-row">
+                <td>adaw</td>
+                <td>wdawd</td>
+                <td>dawda</td>
+                <td>dawdaw</td>
+                <td>dwada</td>
+            </tr>
+        </tbody>
+    </table>
+    <script src="../scripts/sidebar.js"></script>
+    <script src="../scripts/filter.js"></script>
+</body>
+</html>

@@ -1,6 +1,10 @@
 :root{
     --main-margin: 0;
-    --border-top-main: 1.5px solid #07B2FD;
+    --border-top-main: 2px solid #07B2FD;
+    --default-top-main: 2px solid #646464;
+    --mains-color: #07B2FD;
+    --default-color: #646464;
+    --cover-boder: white 4px solid;
 }
 
 *{
@@ -10,11 +14,19 @@
 
 html, body{
     width: 100%;
-    height: 100%;
+    height: 99%;
 }
 
-.top-main{
+.top-body{
+    align-items: center;
+    margin: 0 5%;
+}
+.top{
     display: flex;
+    margin: 1%;
+}
+.top label{
+    color: rgba(87,87,87,0.4);
 }
 .name-infos ul{
     list-style: none;
@@ -27,23 +39,43 @@ html, body{
     font-weight: 700;
     font-size: x-large;
 }
-.nav-bat-top-main section{
+.content-level{
+    margin-left: 65%;
     display: flex;
 }
-.nav-bat-top-main div{
-    margin:0 5px;
+.content-level label{
+    margin: 10px auto;
+}
+.nav-bat-top-main section{
+    display: flex;
+    margin-left: 40%;
+}
+.nav-bat-top-butom{
+    margin:0 2px;
     padding: 5px;
-    border-left: var(--border-top-main);
-    border-top: var(--border-top-main);
-    border-right: var(--border-top-main);
+    border: var(--default-top-main);
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
+    border-bottom: none;
 }
-
+#over-view{
+    z-index: 1;
+    border: var(--border-top-main);
+    border-bottom: var(--cover-boder);
+  
+}
+.nav-bat-top-butom:hover{
+    background: var(--mains-color);
+    color: white;
+    transition: all 0.3s;
+    
+}
 .nav-bat-top-main-text{
-    margin: 5px;
+    margin: 10px;
     cursor: pointer;
 }
 hr{
+    margin-top: -4px;
     border:var(--border-top-main);
+    z-index: 1;
 }
