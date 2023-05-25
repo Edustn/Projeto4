@@ -319,7 +319,7 @@ app.get('/search', async (req, res) => {
 		await DBM.select(newSql, valuesArray).then((qtdRows) => {
 			index = parseInt(index)
 			let qtdConsultRows = qtdRows[0]['qtdRows'];
-			let totalIndex = parseInt(qtdConsultRows) / parseInt(maxRows);
+			let totalIndex = Math.ceil(parseInt(qtdConsultRows) / parseInt(maxRows));
 			if (index > totalIndex) {
 				index = totalIndex;
 			} else if (index < 1) {
