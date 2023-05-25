@@ -317,28 +317,19 @@ app.get('/search', async (req, res) => {
 		valuesArray.pop();
 		valuesArray.pop();
 		await DBM.select(newSql, valuesArray).then((qtdRows) => {
+			index = parseInt(index)
 			let qtdConsultRows = qtdRows[0]['qtdRows'];
-			let totalIndex = qtdConsultRows / maxRows;
-			let previousIndexs = index - 1;
-			let nextIndexs = totalIndex - index;
-			
-			if (previousIndexs > 2) {
-				previousIndexs = 2;
-			} else if (previousIndexs < 0) {
-				previousIndexs = 0;
-			}
-
-			if (nextIndexs > 2) {
-				nextIndexs = 2; 
-			} else if (nextIndexs < 0) {
-				nextIndexs = 0;
+			let totalIndex = parseInt(qtdConsultRows) / parseInt(maxRows);
+			if (index > totalIndex) {
+				index = index - 1;
+			} else if (index < 1) {
+				index = 1;
 			}
 
 			res.statusCode = 200;
 			res.render('partials/results', {results: result, 
 											qtdRows: qtdConsultRows,
-											previousIndexs: previousIndexs,
-											nextIndexs: nextIndexs,
+											totalIndex: totalIndex,
 											index: index
 										});
 		}).catch((error) => {

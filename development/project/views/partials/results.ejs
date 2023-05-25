@@ -54,12 +54,25 @@
 
                 <fieldset id="change-index">
                     <button type="button" class="button-change-index" name="index" aria-label="Ir para página anterior" value="p" id="previous-result">&lt;</button>
+                    <% for(let i = 1; i <= 2; i++) { %>
+                        <% let previousIndex = (index - Math.abs(i - 3)); %>
+                        <% if (previousIndex < 1) { %>
+                            <% break; %>
+                        <% } %>
+                        
+                        <button type="button" class="button-change-index" name="index" aria-label="Ir para a página <%= previousIndex %>" value="<%= previousIndex %>"><%= previousIndex %></button>
+                    <% } %>
 
-                    <button type="button" class="button-change-index" name="index" aria-label="Ir para a página 1" value="1">1</button>
-                    <button type="button" class="button-change-index" name="index" aria-label="Ir para a página 2" value="2">2</button>
-                    <button type="button" class="button-change-index" name="index" aria-label="Ir para a página 3" value="3">3</button>
-                    <button type="button" class="button-change-index" name="index" aria-label="Ir para a página 4" value="4">4</button>
-                    <button type="button" class="button-change-index" name="index" aria-label="Ir para a página 5" value="5">5</button>
+                    <button type="button" class="button-change-index" name="index" aria-label="Ir para a página <%= index %>" value="<%= index %>"><%= index %></button>
+
+                    <% for(let i = 1; i <= 2; i++) { %>
+                        <% let nextIndex = (index + i); %>
+                        <% if (nextIndex > totalIndex) { %>
+                            <% break; %>
+                        <% } %>
+                        
+                        <button type="button" class="button-change-index" name="index" aria-label="Ir para a página <%= nextIndex %>" value="<%= nextIndex %>"><%= nextIndex %></button>
+                    <% } %>
 
                     <button type="button" class="button-change-index" name="index" aria-label="Ir para a próxima página" value="n" id="next-result">&gt;</button>
                 </fieldset>
