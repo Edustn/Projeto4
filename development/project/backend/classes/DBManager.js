@@ -24,7 +24,7 @@ module.exports = class DBManager {
                     if (err) {
                         reject(err);
                     }
-                    resolve(rows)
+                    resolve(rows);
                 });
             });
         });
@@ -45,7 +45,7 @@ module.exports = class DBManager {
                     if (err) {
                         reject(err);
                     }
-                    resolve(rows)
+                    resolve(rows);
                 });
             });
         });

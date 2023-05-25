@@ -20,23 +20,23 @@
             </hgroup>
             <article class="results">
                 <% results.forEach((result) => { %>
-                <% console.log(); %>
-                <% console.log(result); %>
-                <section class="result">                    
-                    <a href='/table?id=<%= result.ID %>''>
-                        <hgroup>
-                            <span><%= result.DATABASE %></span>
-                            <div class="result-container-title">
-                                <h3><%= result.TABELA %></h3>
-                                <% if (String(result.DADOS_SENSIVEIS).trim().toLowerCase() == 's') { %>
-                                <!--Renders an image if it have a sensible content <img src="" alt="Dados sensíveis"></img>-->
-                                <img src="/img/sensitive-content.svg" title="Essa tabela contém dados sensíveis" alt="Imagem que informa que essa tabela contém dados sensíveis" />
-                                <% } %>
-                            </div>
-                        </hgroup>
-                    </a>
-                    <p><%= result.CONTEUDO_TABELA %></p>
-                </section>
+                    <% if (result.ID != null && result.ID != undefined) {  %>
+                        <section class="result">                    
+                            <a href='/table?id=<%= result.ID %>''>
+                                <hgroup>
+                                    <span><%= result.DATABASE %></span>
+                                    <div class="result-container-title">
+                                        <h3><%= result.TABELA %></h3>
+                                        <% if (String(result.DADOS_SENSIVEIS).trim().toLowerCase() == 's') { %>
+                                        <!--Renders an image if it have a sensible content <img src="" alt="Dados sensíveis"></img>-->
+                                            <img src="/img/sensitive-content.svg" title="Essa tabela contém dados sensíveis" alt="Imagem que informa que essa tabela contém dados sensíveis" />
+                                        <% } %>
+                                    </div>
+                                </hgroup>
+                            </a>
+                            <p><%= result.CONTEUDO_TABELA %></p>
+                        </section>
+                    <% } %>
                 <% }); %>
             </article>
             <form action="/search" method="get" id="change-exhibition" class="exhibition">

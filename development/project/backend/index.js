@@ -314,7 +314,7 @@ app.get('/search', async (req, res) => {
 			" LEFT JOIN TB_VALOR_CLASSIFICACAO ON TB_CLASSIFICACAO_TABELA.ID_VALOR_CLASSIFICACAO = TB_VALOR_CLASSIFICACAO.ID_VALOR_CLASSIFICACAO  " +
 			" LEFT JOIN TB_CLASSIFICACAO ON TB_VALOR_CLASSIFICACAO.ID_CLASSIFICACAO = TB_CLASSIFICACAO.ID_CLASSIFICACAO  " +
 			` where (${wheres}) collate nocase ` +
-			` group by TB_TABELA.ID collate nocase ` +
+			` group by TB_TABELA.ID ` +
 			` order by (${orderby}) desc, TB_TABELA.RANKING_GOVERNANCA desc`;
 
 	let sqlWithLimit = sql + ` limit ?, ?;`; 
@@ -324,7 +324,7 @@ app.get('/search', async (req, res) => {
 
 		await DBM.select(newSql, valuesArray).then((qtdRows) => {
 			index = parseInt(index)
-			let qtdConsultRows = qtdRows[0]['qtdRows'];
+			let qtdConsultRows = parseInt(qtdRows[0]['qtdRows']);
 			/**
 			 * The nexts verification are necessary to show a valid index in frontend;
 			 */
@@ -341,7 +341,7 @@ app.get('/search', async (req, res) => {
 			res.statusCode = 200;
 			res.render('partials/results', {
 				results: result, 
-				qtdRows: qtdConsultRows,
+				qtdRows: (qtdConsultRows - 1),
 				totalIndex: totalIndex,
 				index: index,
 				query: q,
