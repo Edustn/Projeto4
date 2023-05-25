@@ -321,7 +321,7 @@ app.get('/search', async (req, res) => {
 			let qtdConsultRows = qtdRows[0]['qtdRows'];
 			let totalIndex = parseInt(qtdConsultRows) / parseInt(maxRows);
 			if (index > totalIndex) {
-				index = index - 1;
+				index = totalIndex;
 			} else if (index < 1) {
 				index = 1;
 			}
