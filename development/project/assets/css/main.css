@@ -1,0 +1,109 @@
+/* ---------------------------------------------
+Table of contents
+------------------------------------------------
+01. import partials
+02. font & reset css
+03. reset
+04. global styles
+05. header
+06. footer
+07. preloader
+08. keyframes
+--------------------------------------------- */
+
+/*
+---------------------------------------------
+Import partials
+---------------------------------------------
+*/
+
+@import url(./partials/results.css);
+
+/* 
+---------------------------------------------
+font & reset css
+--------------------------------------------- 
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mada:wght@200;300;400;500;600;700;800;900&display=swap');
+
+/*
+    Reseting css
+*/
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    text-decoration: none;
+    list-style: none;
+    font-weight: 500;
+    background-color: transparent;
+}
+
+/*
+---------------------------------------------
+global styles
+---------------------------------------------
+*/
+:root {
+  font-size: 10px;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 400;
+}
+
+a:hover,
+button:hover {
+    cursor: pointer;
+}
+
+html, 
+body,
+.container {
+    width: 100%;
+    min-height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*
+---------------------------------------------
+06. footer
+---------------------------------------------
+*/
+
+footer {
+    width: 100%;
+    margin: 1rem 0;
+}
+
+footer address{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+footer address h3 {
+    line-height: 27px;
+}
+
+footer address p a,
+footer address p {
+    line-height: 30px;
+}

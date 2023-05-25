@@ -1,0 +1,21 @@
+:root{
+    --main-color:#3CC1FE;
+    --dark-color: #242940;
+}
+html{
+    font-family: sans-serif;
+}
+.table-head{
+    background: var(--dark-color);
+    color: white;
+}
+tr{
+    background-color: var(--main-color);
+}
+tr:nth-of-type(2n){
+    background-color: white;
+}
+table, th, td{
+    border-collapse: collapse;
+    padding: 5px;
+}

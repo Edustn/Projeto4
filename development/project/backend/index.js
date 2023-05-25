@@ -1,4 +1,4 @@
-const express = require('express');  
+const express = require('express');
 const DBManager = require('./classes/DBManager.js');
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -10,8 +10,15 @@ const hostname = '127.0.0.1';
 const port = 3000;
 const app = express();
 
+app.set('view engine', 'ejs');
 
-app.use(express.json());
+app.use(express.static("assets/"));
+
+app.get("/", (req, res) => {
+	res.statusCode = 200;
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	
+});
 
 
 /**
@@ -241,15 +248,107 @@ app.post('/insert-tb', urlencodedParser, async (req, res) => {
  * @returns {JSON}
  */
 app.get('/search', async (req, res) => {
-	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	let q = req.query.q;
 	let index = req.query.index;
 	let maxRows = req.query.maxRows;
-	let value = "%" + q + "%";
-	let sql = `select * from TB_TABELA where TABELA like ? limit ${index}, ${maxRows}`;
-	await DBM.select(sql, [value]).then((result) => {
-		res.json(result);
+	
+	let words = q.split(" ");
+	words = words.filter((item, index) => words.indexOf(item) === index);
+
+	let values = words.map(word => ("%" + word + "%"));
+	let valuesArray = [
+						...values, ...values, ...values, ...values, ...values,
+						...values, ...values, ...values, ...values, ...values,
+						...values, ...values, ...values
+					].sort();
+
+	valuesArray = valuesArray.concat(valuesArray);
+	
+	valuesArray.push(index);
+	valuesArray.push(maxRows);
+
+	let comparisons = words.map(word => (
+		[
+			" TB_TABELA.CONTEUDO_TABELA like ?",
+			" TB_TABELA.DATABASE like ?", 
+			" TB_TABELA.TABELA like ?",
+
+			" TB_VALOR_CLASSIFICACAO.VALOR_CLASSIFICACAO like ?",
+			" TB_CLASSIFICACAO.NOME_CLASSIFICACAO like ? ",
+
+			" TB_OWNER_STEWARD.CONJUNTO_DADOS like ?",
+			" TB_OWNER_STEWARD.DATA_STEWARD like ?",
+			" TB_OWNER_STEWARD.DATA_OWNER like ?",
+			" TB_OWNER_STEWARD.SIGLA_CONJUNTO_DE_DADOS like ?",
+
+			" TB_VARIAVEL.TIPO_CAMPO like ?",
+			" TB_VARIAVEL.TIPO_PESSOA like ?",
+			" TB_VARIAVEL.NOME_CAMPO like ?",
+			" TB_VARIAVEL.DESCRICAO_CAMPO like ?" 
+		]
+	));
+
+	let wheres = comparisons.map(word => word.join(" or ")).join(" or ");
+	let orderby = comparisons.map( (array) => {
+			let step = parseInt(array.length);
+			let weights = (parseInt(array.length) * 10) + step;
+			return array.map(phrase => {
+				weights = weights - step;
+				return (" (CASE WHEN " + phrase + ` collate nocase THEN ${weights.toFixed(1)} ELSE 0 END)`);
+			}).join(" + ");
+		}).join(" + ");
+		
+	let sql = "select * from TB_TABELA " +
+			" LEFT JOIN TB_VARIAVEL ON TB_TABELA.TABELA = TB_VARIAVEL.TABELA " +
+			" LEFT JOIN TB_OWNER_STEWARD ON TB_TABELA.CONJUNTODADOS_PRODUTO = TB_OWNER_STEWARD.CONJUNTO_DADOS " +
+			" LEFT JOIN TB_CONEXAO ON TB_TABELA.ID = TB_CONEXAO.ID  " +
+			" LEFT JOIN TB_CLASSIFICACAO_TABELA ON TB_TABELA.ID = TB_CLASSIFICACAO_TABELA.ID_TABELA " +
+			" LEFT JOIN TB_VALOR_CLASSIFICACAO ON TB_CLASSIFICACAO_TABELA.ID_VALOR_CLASSIFICACAO = TB_VALOR_CLASSIFICACAO.ID_VALOR_CLASSIFICACAO  " +
+			" LEFT JOIN TB_CLASSIFICACAO ON TB_VALOR_CLASSIFICACAO.ID_CLASSIFICACAO = TB_CLASSIFICACAO.ID_CLASSIFICACAO  " +
+			` where (${wheres}) collate nocase ` +
+			` group by TB_TABELA.ID collate nocase ` +
+			` order by (${orderby}) desc, TB_TABELA.RANKING_GOVERNANCA desc`;
+
+	let sqlWithLimit = sql + ` limit ?, ?;`; 
+	
+	await DBM.select(sqlWithLimit, valuesArray).then(async (result) => {
+		let newSql = `select count(*) as 'qtdRows' FROM (${sql}) T;`
+		valuesArray.pop();
+		valuesArray.pop();
+		await DBM.select(newSql, valuesArray).then((qtdRows) => {
+			let qtdConsultRows = qtdRows[0]['qtdRows'];
+			let totalIndex = qtdConsultRows / maxRows;
+			let previousIndexs = index - 1;
+			let nextIndexs = totalIndex - index;
+			
+			if (previousIndexs > 2) {
+				previousIndexs = 2;
+			} else if (previousIndexs < 0) {
+				previousIndexs = 0;
+			}
+
+			if (nextIndexs > 2) {
+				nextIndexs = 2; 
+			} else if (nextIndexs < 0) {
+				nextIndexs = 0;
+			}
+
+			res.statusCode = 200;
+			res.render('partials/results', {results: result, 
+											qtdRows: qtdConsultRows,
+											previousIndexs: previousIndexs,
+											nextIndexs: nextIndexs,
+											index: index
+										});
+		}).catch((error) => {
+			console.log(error);
+			res.end();
+		});
+		
+	}).catch((error) => {
+		res.statusCode = 500;
+		res.end(error);
 	});
 });
 
@@ -265,7 +364,7 @@ app.get('/table', async (req, res) => {
 	let id = req.query.id;
 	let sql = "select * from TB_TABELA " +
 		"inner join TB_OWNER_STEWARD on " +
-		"TB_TABELA.CONJUNTODADOS_PRODUTO = TB_OWNER_STEWARD.ConjuntodeDados " +
+		"TB_TABELA.CONJUNTODADOS_PRODUTO = TB_OWNER_STEWARD.CONJUNTO_DADOS " +
 		"where ID=?";
 	await DBM.select(sql, [id]).then(async (result) => {
 		let response = result[0];
@@ -471,3 +570,5 @@ app.post('/remove-classification', urlencodedParser, async(req, res) => {
 app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
   });
+
+

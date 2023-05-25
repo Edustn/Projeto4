@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/2023M2T9-Inteli/Projeto4#readme",
   "dependencies": {
+    "ejs": "^3.1.9",
     "express": "^4.18.2",
     "nodemon": "^2.0.22",
     "sqlite3": "^5.1.6"
