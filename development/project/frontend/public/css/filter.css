@@ -8,10 +8,20 @@ body, html{
     height: 99%;
     font-family: "Montserrat", sans-serif;
 }
-
+#filter-area{
+    width: 100%;
+    height: max-content;
+}
 #filter-box{
     background-color: var(--main-color);
-    max-width: 45%;
+    max-width: 100%;
+    margin: auto;
+    position: absolute;
+    padding: 10px;
+    display: none;
+    border-radius: 30px;
+    border: #26b6f9 5px solid;
+    box-shadow: 2px 2px 5px black;
     margin: auto;
 }
 #filter-box ul {
@@ -25,8 +35,8 @@ body, html{
     align-items: center;
 }
 #filter-box ul li {
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 #filter-box ul li select{
     border-radius: 20px;
