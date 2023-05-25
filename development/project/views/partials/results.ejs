@@ -15,7 +15,7 @@
         </header>
         <main class="results-container">
             <hgroup>
-                <h2>Resultados para: <strong id="search-query">Pesquisa Realizada</strong></h2>
+                <h2>Resultados para: <strong id="search-query"><%= query %></strong></h2>
                 <p>Exibindo <span id="qtdMaxRows"></span> de <%= qtdRows %> resultados</p>
             </hgroup>
             <article class="results">
@@ -57,7 +57,7 @@
                     <% for(let i = 1; i <= 2; i++) { %>
                         <% let previousIndex = (index - Math.abs(i - 3)); %>
                         <% if (previousIndex < 1) { %>
-                            <% break; %>
+                            <% continue; %>
                         <% } %>
                         
                         <button type="button" class="button-change-index" name="index" aria-label="Ir para a página <%= previousIndex %>" value="<%= previousIndex %>"><%= previousIndex %></button>

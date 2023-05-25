@@ -17,7 +17,7 @@ app.use(express.static("assets/"));
 app.get("/", (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*');
-	
+	res.render();
 });
 
 
@@ -330,7 +330,8 @@ app.get('/search', async (req, res) => {
 			res.render('partials/results', {results: result, 
 											qtdRows: qtdConsultRows,
 											totalIndex: totalIndex,
-											index: index
+											index: index,
+											query: q
 										});
 		}).catch((error) => {
 			console.log(error);
