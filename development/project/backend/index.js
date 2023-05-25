@@ -245,7 +245,7 @@ app.post('/insert-tb', urlencodedParser, async (req, res) => {
  * @param {String} q
  * @param {Integer} index
  * @param {Integer} maxRows  
- * @returns {JSON}
+ * @returns {EJS} results.ejs
  */
 app.get('/search', async (req, res) => {
 	res.setHeader('Access-Control-Allow-Origin', '*');

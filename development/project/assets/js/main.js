@@ -1,5 +1,10 @@
 import { submitFormWithNewIndex, submitForm } from "./search.js";
 
+/**
+ ********************************************************************************
+ * The main file added all functions based in what elements the page has.
+ ********************************************************************************
+ */
 document.addEventListener('DOMContentLoaded', () => {
     let exhibitionForm = document.querySelector("#change-exhibition");
     
@@ -31,4 +36,5 @@ document.addEventListener('DOMContentLoaded', () => {
             submitForm(e, exhibitionForm);
         })
     }
+    
 });

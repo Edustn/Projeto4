@@ -1,3 +1,8 @@
+/**
+ * Function that changes the hidden index input to submit the form
+ * @param {Event} event 
+ * @param {HTMLFormElement} form 
+ */
 export function submitFormWithNewIndex(event, form) {
     let indexInput = document.querySelector("#index-exhibition");
     let EventValue = event.target.value; 
@@ -21,7 +26,12 @@ export function submitFormWithNewIndex(event, form) {
     form.requestSubmit();
 }
 
+
+/**
+ * Function to submit the form. Used when an input changes. 
+ * @param {Event} event 
+ * @param {HTMLFormElement} form 
+ */
 export function submitForm(event, form) {
-    console.log("submit-index");
     form.requestSubmit();
 }
