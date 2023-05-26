@@ -1,3 +1,6 @@
+//This is only a test script that doesn't have any importance or link with our project
+
+
 const express = require('express');
 const bodyParser = require("body-parser");
 const urlencodedParser = bodyParser.urlencoded({ extended : true});

@@ -34,8 +34,8 @@ html, body{
     border: none;
     background: transparent;
 }
-.table-content .table { 
-    width: 95%;
+.table-content .table{ 
+    width: 97.5%;
     border: var(--table-head-border);
     border-radius: 13px; 
     border-spacing: 0;
@@ -47,6 +47,7 @@ html, body{
 .table-content .table-head .table-row-head{
     background: var(--dark-color);
     color: var(--table-head-color);
+    
 }
 .table-content .table-head th{
     border-bottom: var(--table-head-border);
