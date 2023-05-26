@@ -34,36 +34,35 @@ html, body{
     border: none;
     background: transparent;
 }
-.table-content table { 
+.table-content .table { 
     width: 95%;
     border: var(--table-head-border);
     border-radius: 13px; 
     border-spacing: 0;
     margin: 10px auto;
-    font-family: Fredoka;
+    font-family: "Fredoka";
+    font-weight: lighter;
+    font-size: 16px;
 }
-.table-content thead tr{
+.table-content .table-head .table-row-head{
     background: var(--dark-color);
     color: var(--table-head-color);
 }
-.table-content thead th{
+.table-content .table-head th{
     border-bottom: var(--table-head-border);
     padding: 5px;
 }
-.table-content table td { 
+.table-content .table td { 
     border-bottom: none;
     padding: 10px; 
     text-align: center;
 }
-.table-content tbody{
-    font-weight: lighter;
-}
 .table-content table tr:last-child > td {
     border-bottom: none;
   }
-  .table-content .table-row:nth-of-type(2n){
+.table-content .table-body tr:nth-of-type(2n){
     background-color: var(--main-color);
 }
-.table-content .table-row:hover{
+.table-content .table-body tr:hover{
     background: var(--table-row-hover);
 }
