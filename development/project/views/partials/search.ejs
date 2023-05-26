@@ -1,8 +1,12 @@
 <section class="search-content">
-    <form action="/search" method="get" id="search-bar">
-        <button type="submit"><img src="/img/search-icon.jpg" alt="" id="search-img"></button>
+    <form action="/search" method="get" class="search-bar">
+        <button type="submit">
+            <img src="/img/search-icon.jpg" alt="" class="search-img">
+        </button>
         <input type="text" name="q" id="search-input" required autocomplete="off">
-        <button type="button" id="filter-button"><img src="/img/filter-icon.jpg" alt="" id="filter-img" onclick="viewMode()"></button>
+        <button type="button" id="filter-button">
+            <img src="/img/filter-icon.jpg" alt="" class="filter-img" onclick="viewMode()">
+        </button>
         <input type="number" name="maxRows" style="display: none;" value="20">
         <input type="number" name="index" style="display: none;" value="1">
     </form>
