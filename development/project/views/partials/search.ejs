@@ -1,22 +1,12 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/serach-bar.css">
-    <link rel="stylesheet" href="/css/filter.css">
-    <title>Document</title>
-</head>
-<body>
+<section class="search-content">
     <form action="/search" method="get" id="search-bar">
-        <button type="submit"><img src="/imagens/search-icon.jpg" alt="" id="search-img"></button>
+        <button type="submit"><img src="/img/search-icon.jpg" alt="" id="search-img"></button>
         <input type="text" name="q" id="search-input" required autocomplete="off">
-        <button type="button" id="filter-button"><img src="/imagens/filter-icon.jpg" alt="" id="filter-img" onclick="viewMode()"></button>
+        <button type="button" id="filter-button"><img src="/img/filter-icon.jpg" alt="" id="filter-img" onclick="viewMode()"></button>
         <input type="number" name="maxRows" style="display: none;" value="20">
         <input type="number" name="index" style="display: none;" value="1">
     </form>
-    <div id="filter-area">
+    <div class="filter-area">
         <section id="filter-box">
             <form action="" method="get">
                 <ul class="filter-itens">
@@ -106,6 +96,4 @@
             </form> 
         </section>
     </div>
-    <script src="/scripts/filter.js"></script>
-</body>
-</html>
+    <script src="/js/filter.js"></script>

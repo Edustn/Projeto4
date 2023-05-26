@@ -8,11 +8,9 @@
     <title>Pangeia | Tudo em um só lugar</title>
 </head>
 <body>
+    <%- include("partials/header.ejs");%> 
+    <br><br><br><br><br><br><br><br>
     <div class="container">
-        <header>
-            <form action="/search" method="get" id="search-bar" onsubmit="">
-            </form>
-        </header>
         <main class="results-container">
             <hgroup>
                 <h2>Resultados para: <strong id="search-query"><%= query %></strong></h2>

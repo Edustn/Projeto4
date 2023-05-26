@@ -8,11 +8,11 @@ body, html{
     height: 99%;
     font-family: "Montserrat", sans-serif;
 }
-#filter-area{
+.filter-area{
     width: 100%;
     height: max-content;
 }
-#filter-box{
+.filter-area #filter-box{
     background-color: var(--main-color);
     max-width: 100%;
     margin: auto;
@@ -24,37 +24,36 @@ body, html{
     box-shadow: 2px 2px 5px black;
     margin: auto;
 }
-#filter-box ul {
+.filter-area #filter-box ul {
     display: flex;
     list-style: none;
     padding: 0px;
     height: 125px;
 }
-#filter-box div{
+.filter-area #filter-box div{
     margin: 10px;
     align-items: center;
 }
-#filter-box ul li {
+.filter-area #filter-box ul li {
     margin-left: 10px;
     margin-right: 10px;
 }
-#filter-box ul li select{
+.filter-area #filter-box ul li select{
     border-radius: 20px;
     outline: none;
     max-width: 120px;
-    font-size: 16px;
-}
-#filter-box ul li div{
-    width: 100px;
-}
-#filter-box ul li select:hover{
+    font-size: 20px;
+    background: white;
     cursor: pointer;
 }
+.filter-area #filter-box ul li div{
+    width: 100px;
+}
+.filter-area #filter-box ul li select:hover{
+    background: #c4ecff;
+    transition: 150ms;
+}
 /*does not work in webkit browsers: chrome/safari)*/
-select option {
-    background: white;
-    font-size: 16px;
-  }
 /* select alternating items starting with the second item */
 select option:nth-of-type(2n) {
     background: rgba(0,0,0,0.1);

@@ -12,12 +12,12 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
-app.use(express.static("assets/"));
+app.use(express.static("public/"));
 
 app.get("/", (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.render();
+	res.render("../views/index.ejs");
 });
 
 
@@ -339,7 +339,7 @@ app.get('/search', async (req, res) => {
 
 
 			res.statusCode = 200;
-			res.render('partials/results', {
+			res.render('results', {
 				results: result, 
 				qtdRows: (qtdConsultRows - 1),
 				totalIndex: totalIndex,
@@ -379,7 +379,7 @@ app.get('/table', async (req, res) => {
 		response["VARIAVEL"] = await DBM.select("select * from TB_VARIAVEL where TABELA=?", [table]);
 		sql = "select * from TB_CLASSIFICACAO_TABELA where ID_TABELA=?";
 		response["CLASSIFICACAO_TABELA"] = await DBM.select(sql, [id]);		
-		res.json(response);
+		res.render('../views/over-view-table.ejs');
 	});
 });
 

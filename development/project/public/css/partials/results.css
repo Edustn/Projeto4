@@ -95,3 +95,8 @@
 .results-container .exhibition button.actual-page {
     color: blue;
 }
+
+.results-container .result .result-container-title h3:hover{
+    color: #15B5FF;
+    transition: 50ms;
+}

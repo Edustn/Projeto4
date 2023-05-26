@@ -8,13 +8,13 @@ const app = express();
 const hostname = "127.0.0.1";
 const port = 3000;
 
-app.use(express.static("frontend/public"))
+app.use(express.static("public"))
 app.set('view engine','ejs');
 
 
 
 app.get("/", (req, res) =>{
-    res.render("../frontend/views/search.ejs")
+    res.render("../views/partials/tables.ejs")
 });
 
 

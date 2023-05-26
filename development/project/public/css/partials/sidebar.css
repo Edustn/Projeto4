@@ -7,56 +7,54 @@ html,body{
     height: 99%;
     margin: 0;
 }
-#main-menu{
-    margin: 0;
+section{
+    padding: 5px;
 }
-.menu-buttom{
+.sidebar-content .menu-buttom{
     background: transparent;
     border: none;
     cursor: pointer;
 }
-#sideBar{   
+.sidebar-content #sidebar{   
     top: 0;
     left: 0;
     display: none;
-    z-index: 1;
     position:absolute;
-    height: 100%;
+    height: 48.5vw;
     width: 25%;
     background-color: var(--main-color);
-    font-family: "Montserrat", sans-serif;
-    font-weight: 500;
+    box-shadow: 5px 5px 10px black;
 }
-#sideBar ul{
+.sidebar-content .menu-itens{
     list-style: none;
     padding: 0;
 }
-#sideBar ul li{
-    margin: 10px;
+.sidebar-content .menu-itens li{
+    padding: 5px;
+    margin-top: 30px;
     align-items: center;
 }
-#sideBar ul li a{
+.sidebar-content .menu-itens li a{
     width: 100%;
-    height: 100%;
     text-decoration: none;
 }
-#sideBar ul li a label{
+.sidebar-content .menu-itens li a label{
     margin: 20px;
     font-size: large;
     color: black;
 }
 
-.close-buttom{
+.sidebar-content .close-buttom{
     margin: auto;
     width: 100%;
     border: none;
     background-color: transparent;
 }
-.space{
+.sidebar-content .space{
     width: 100%;
     height: 5px;
 }
-.bar1{
+.sidebar-content .bar1{
     width: 80px;
     height: 15px;
     background-color: var(--main-color);
@@ -64,17 +62,17 @@ html,body{
     margin-top: 0;
     border-radius: 20px;
 }
-.bar2{
+.sidebar-content .bar2{
     width: 65px;
     height: 15px;
     background-color: var(--main-color);
     margin: 5px;
     border-radius: 20px;
 }
-.bar3{
+.sidebar-content .bar3{
     width: 45px;
     height: 15px;
     background-color: var(--main-color);
     margin: 5px;
     border-radius: 20px;
-}
+}   

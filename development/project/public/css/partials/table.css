@@ -12,27 +12,29 @@ html, body{
     margin: auto;
 }
 
-.top-desc{
+.table-content .top-desc{
     display: flex;
 }
-.desc-area{
+.table-content .desc-area{
     width: 100%;
-    margin: 10px 2.5%;
+    margin: 0 2.5%;
     font-family: Montserrat, sans-serif;
 }
-.desc-table{
-    margin: 10px auto;
+.table-content .desc-table{
+    margin: 0;
+    font-size: 30px;
 }
-.desc-table-text{
-    margin: 10px 0;
+.table-content .desc-table-text{
+    margin: 0;
     max-width: 50%;
+    font-size: 15px;
 }
-.button-report{
+.table-content .button-report{
     cursor: pointer;
     border: none;
     background: transparent;
 }
-table { 
+.table-content table { 
     width: 95%;
     border: var(--table-head-border);
     border-radius: 13px; 
@@ -40,28 +42,28 @@ table {
     margin: 10px auto;
     font-family: Fredoka;
 }
-thead tr{
+.table-content thead tr{
     background: var(--dark-color);
     color: var(--table-head-color);
 }
-thead th{
+.table-content thead th{
     border-bottom: var(--table-head-border);
     padding: 5px;
 }
-table td { 
+.table-content table td { 
     border-bottom: none;
     padding: 10px; 
     text-align: center;
 }
-tbody{
+.table-content tbody{
     font-weight: lighter;
 }
-table tr:last-child > td {
+.table-content table tr:last-child > td {
     border-bottom: none;
   }
-.table-row:nth-of-type(2n){
+  .table-content .table-row:nth-of-type(2n){
     background-color: var(--main-color);
 }
-.table-row:hover{
+.table-content .table-row:hover{
     background: var(--table-row-hover);
 }
