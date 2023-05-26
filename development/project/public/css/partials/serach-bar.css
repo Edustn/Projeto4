@@ -4,7 +4,8 @@ body, html{
     height: 100%;
     color: black;
 }
-#search-bar{
+
+.search-content #search-bar{
     border: 2px black solid;
     border-radius: 50px;
     width: 100%;
@@ -17,7 +18,7 @@ body, html{
     align-items: center;
 
 }
-#search-bar button{
+.search-content #search-bar button{
     width: 100%;
     padding: 5px;
     height: 100%;
@@ -26,7 +27,7 @@ body, html{
     cursor: pointer;
 }
 
-#search-input{
+.search-content #search-input{
     width: 100%;
     height: 100%;
     border: none;

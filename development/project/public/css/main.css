@@ -19,6 +19,11 @@ Import partials
 
 @import url(./partials/results.css);
 @import url(./partials/index.css);
+@import url(./partials/table.css);
+@import url(./partials/serach-bar.css);
+@import url(./partials/filter.css);
+@import url(./partials/sidebar.css);
+@import url(./partials/header.css);
 
 /* 
 ---------------------------------------------

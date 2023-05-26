@@ -1,4 +1,4 @@
-#header{
+.header{
     display: flex;
     position: fixed;
     width: 100%;
@@ -18,4 +18,5 @@
     font-size: 72px;
     width: 100%;
     color: #373740;
+    font-weight: 600;
 }

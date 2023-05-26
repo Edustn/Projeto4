@@ -13,18 +13,17 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="index">
-        <header>
+
+    <main  class="index">
+        <header class="menu">
             <%- include("partials/sidebar.ejs"); %>
         </header>
-        <main>
-            <h1 class="logo">
-                PANGEIA
-            </h1>
-            <div class="search-area" style="width: 50%; margin: auto;">
-                <%- include("partials/search.ejs"); %>
-            </div>
-        </main>
-    </div>
+        <h1 class="logo">
+            PANGEIA
+        </h1>
+        <div class="search-area">
+            <%- include("partials/search.ejs"); %>
+        </div>
+    </main>
 </body>
 </html>

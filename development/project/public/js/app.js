@@ -14,7 +14,7 @@ app.set('view engine','ejs');
 
 
 app.get("/", (req, res) =>{
-    res.render("../views/partials/logo.ejs")
+    res.render("../views/partials/tables.ejs")
 });
 
 
