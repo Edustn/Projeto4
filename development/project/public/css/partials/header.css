@@ -4,19 +4,21 @@
     width: 100%;
     top: 0;
     background-color: white;
+    box-shadow: #373740 0 0 10px;
 }
-.search{
+.header .search{
     margin: 0;
     min-width: 40%;
     margin: 0 auto;
 }
-#div-logo{
+.header #div-logo{
     width: 40%;
 }
-#logo{
+.header #logo{
     margin: 0  20%;
     font-size: 72px;
+    font-family: "Rubik";
     width: 100%;
     color: #373740;
-    font-weight: 600;
+    font-weight: 900;
 }

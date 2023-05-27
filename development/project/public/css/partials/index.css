@@ -1,18 +1,20 @@
 .index {
-    margin: 0%;
+    margin: 0% ;
+
 }
 .index .logo{
     margin-top: 10%;
     text-align: center;
     font-size: 90px;
-    font-weight: 600;
+    font-weight: 900;
+    font-family: "Rubik";
     color: #373740;
 }
 .index .search-area{
     width: 60%;
     margin: auto;
 }
-
+/* Resizing of the screen component to a smaller screen device, like a smartphone */
 @media screen and (max-width: 450px){
     .index .logo{
         font-size: 60px;

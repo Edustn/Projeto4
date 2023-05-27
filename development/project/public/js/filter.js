@@ -1,3 +1,4 @@
+//This functions makes the filter container appears and desappears when the filter icon/button is clicked
 function viewMode(){
     let filterBox = window.document.getElementById("filter-box");
 

@@ -11,14 +11,74 @@
     <header>
         <%- include("partials/header.ejs"); %>
     </header>
-    <br><br><br><br><br><br><br>
+    <div class="space"></div>    
     <main>
+        <%- include("partials/header-main.ejs");%>
         <section>
-            <%- include("partials/header-main.ejs"); %>
-        </section>
-        <section>
-            <%- include("partials/tables.ejs"); %>
-        </section>
+            <section class="table-content">
+                <div class="top-desc">
+                    <section class="desc-area">
+                        <h3 class="desc-table">Descrição da Tabela:</h3>
+                        <p class="desc-table-text">
+                            <%= table.CONTEUDO_TABELA %>
+                        </p>
+                    </section>
+                    <button type="button" class="button-report">
+                        <figure><img src="/img/button_report.svg" title="Sugerir Alteração"></figure>
+                    </button>
+                </div>
+                <table class="table">
+                    <thead class="table-head">
+                        <tr class="table-row-head">
+                            <th>NOME DO CAMPO</th>
+                            <th>TIPO DO CAMPO</th>
+                            <th>TIPO DE PESSOA</th>
+                            <th>DESCRIÇÃO DO CAMPO</th>
+                            <th>CHAVE PRIMÁRIA</th>
+                            <th>ACEITA VAZIO</th>
+                            <th>DADO ÚNICO</th>
+                            <th title="">VOLÁTIL</th>
+                            <th>LGPD</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-body">
+                        <!--Here a loop is 'for' to map de number of rows in the table-->
+                        <% for(let index in table.VARIAVEL) { %>
+                            <!--While the lop for get de index of the row a new row is genereted in the table using an ejs comand-->
+                            <%  let field = table.VARIAVEL[index]; %>
+                            <tr>
+                                <td>
+                                    <%= field.NOME_CAMPO %>
+                                </td>
+                                <td>
+                                    <%= field.TIPO_CAMPO %>
+                                </td>
+                                <td>
+                                    <%= field.TIPO_PESSOA %>
+                                </td>
+                                <td>
+                                    <%= field.DESCRICAO_CAMPO %>
+                                </td>
+                                <td>
+                                    <%= field.CH_PRIMARIA %>  
+                                </td>
+                                <td>
+                                    <%= field.ACCEPT_NULL %>
+                                </td>
+                                <td>
+                                    <%= field.UNQ %>
+                                </td>
+                                <td>
+                                    <%= field.VOLARIL %>
+                                </td>
+                                <td>
+                                    <%= field.LGPD %>
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table> 
+            </section>  
     </main>
 </body>
 </html>

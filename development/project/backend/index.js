@@ -379,7 +379,9 @@ app.get('/table', async (req, res) => {
 		response["VARIAVEL"] = await DBM.select("select * from TB_VARIAVEL where TABELA=?", [table]);
 		sql = "select * from TB_CLASSIFICACAO_TABELA where ID_TABELA=?";
 		response["CLASSIFICACAO_TABELA"] = await DBM.select(sql, [id]);		
-		res.render('../views/over-view-table.ejs');
+		res.render('../views/over-view-table.ejs', {
+			table: response
+		});
 	});
 });
 

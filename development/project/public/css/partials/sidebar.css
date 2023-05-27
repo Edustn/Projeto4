@@ -25,20 +25,20 @@ section{
     background-color: var(--main-color);
     box-shadow: 5px 5px 10px black;
 }
-.sidebar-content .menu-itens{
+.sidebar-content .menu-items{
     list-style: none;
     padding: 0;
 }
-.sidebar-content .menu-itens li{
+.sidebar-content .menu-items li{
     padding: 5px;
     margin-top: 30px;
     align-items: center;
 }
-.sidebar-content .menu-itens li a{
+.sidebar-content .menu-items li a{
     width: 100%;
     text-decoration: none;
 }
-.sidebar-content .menu-itens li a label{
+.sidebar-content .menu-items li a label{
     margin: 20px;
     font-size: large;
     color: black;

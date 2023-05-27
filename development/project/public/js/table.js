@@ -1,7 +1,9 @@
+//This is only a test script that doesn't have any importance or link with our project
+
 function addTableRows(){
 
 let table = document.querySelector(".table-body");
-for (let index = 0; index < 9; index++) {
+for (let index = 0; index < 8; index++) {
     let row = table.insertRow(-1);
 
     let c0 = row.insertCell(0);
