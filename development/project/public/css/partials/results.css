@@ -6,6 +6,10 @@
     margin: 2rem 0 2rem 40px;
 }
 
+.space{
+    min-height: 12%;
+}
+
 .results-container > hgroup h2 {
     font-size: 2.4rem;
 }

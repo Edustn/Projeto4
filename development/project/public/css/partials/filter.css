@@ -53,12 +53,11 @@ body, html{
     background: #c4ecff;
     transition: 150ms;
 }
-/*does not work in webkit browsers: chrome/safari)*/
 /* select alternating items starting with the second item */
 select option:nth-of-type(2n) {
     background: rgba(0,0,0,0.1);
   }
-
+/* Resizing of the screen component to a smaller screen device, like a smartphone*/
 @media screen and (max-width: 450px){
     #filter-box{
         width: 85%;
