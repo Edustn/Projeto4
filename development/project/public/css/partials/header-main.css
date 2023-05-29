@@ -61,6 +61,7 @@ html, body{
 }
 .top-body #over-view{
     border: var(--border-top-main);
+    border-bottom: 0;
 }
 .top-body .nav-bat-top-butom:hover{
     background: var(--mains-color);
