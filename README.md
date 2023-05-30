@@ -26,7 +26,7 @@
         <tr>
         <td align="center"><a href=""><img src="" width="100px;" alt=""/><br><sub><b>Lucas Rego</b></sub></a><br></td>
         <td align="center"><a href=""><img src="" width="100px;" alt=""/><br><sub><b>Luiza Rubim</b></sub></a><br></td>
-        <td align="center"><a href=""><img src="" width="100px;" alt=""/><br><sub><b>Yan</b></sub></a><br></td>
+        <td align="center"><a href=""><img src="" width="100px;" alt=""/><br><sub><b>Yan Coutinho</b></sub></a><br></td>
         </tr>
     </table>
 </div>
