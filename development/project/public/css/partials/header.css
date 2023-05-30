@@ -1,0 +1,24 @@
+.header{
+    display: flex;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background-color: white;
+    box-shadow: #373740 0 0 10px;
+}
+.header .search{
+    margin: 0;
+    min-width: 40%;
+    margin: 0 auto;
+}
+.header #div-logo{
+    width: 40%;
+}
+.header #logo{
+    margin: 0  20%;
+    font-size: 72px;
+    font-family: "Rubik";
+    width: 100%;
+    color: #373740;
+    font-weight: 900;
+}

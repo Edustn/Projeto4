@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/serach-bar.css">
+    <link rel="stylesheet" href="../css/filter.css">
+    <link rel="stylesheet" href="../css/menu.css">
+    <title>Document</title>
+</head>
+<body> 
+    <script type="text/javascript" onload="hide()">
+        function hide(){
+            let box = window.document.getElementById("filter-box");
+            box.style.display = "none";
+        };
+    </script>
+    <aside id="sideBar">
+        <button onclick="closeMenu()" class="close-buttom">Fechar</button>
+        <div class="perfil">
+            <ul>
+                <li>
+                    <img src="../imagens/🦆 icon _profile circle_.png" alt="">
+                </li>
+                <li>
+                    <h4>Caio Teixeira</h4>
+                </li>
+            </ul>
+        </div>
+        <ul class="menu-itens">
+            <li>
+                <a href="index.html">
+                    <img src="/frontend/imagens/🦆 icon _home 2_.png" alt=""><label for="">PÁGINA INICIAL</label>
+                </a>          
+            </li>
+            <li>
+                <a href="#">
+                    <img src="/frontend/imagens/🦆 icon _book saved_.png" alt=""><label for="">TUTORIAS</label>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="/frontend/imagens/🦆 icon _note_.png" alt=""><label for="">REPORTES</label>
+                </a> 
+            </li>
+            <li>
+                <a href="#">
+                    <img src="/frontend/imagens/🦆 icon _verify_.png" alt=""><label for="">SOLICITAÇÃO DE ACESSO</label>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="/frontend/imagens/Group 3.png" alt=""><label for="">TEMA ESCURO</label>
+                </a>
+            </li>
+        </ul>
+    </aside>
+    <div id="main">
+        <div id="content">
+            <div class="space"></div>
+            <header class="header"> 
+                <butto onclick="openMenu()" class="menu-buttom">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </button>    
+            </header>
+            <div class="img-div">
+                <label class="logo">PANGEIA</label>
+            </div>
+            <form action="/search" method="get" id="search-bar" class="img">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-1">
+                            <button type="submit" id="submit-button">
+                                <img src="/frontend/imagens/search-icon.jpg" alt="search-icon" class="search-icon" onkeypress="search()">
+                            </button>
+                            
+                        </div>
+                        <div class="col-lg-10 input" id="div-input">
+                            <input type="text" name="search" id="input" placeholder="Pesquisar tabela..." value="" required>
+                        </div>
+                        <div class="col-1">
+                            <button type="button" class="filter-button">
+                                <img src="/frontend/imagens/filter-icon.jpg" alt="iconFiltro" class="filter-icon" onclick="viewMode()">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="container" id="filter-box">
+                            <div class="row">
+                                <div class="col">
+                                    <h5>Conjunto de dados</h5>
+                                    <select name="assunto" id="assunto" class="filter">
+                                        <br>
+                                        <option value="">todos</option>
+                                        <option value="Engenharia de Dados">Engenharia de Dados</option>
+                                        <option value="Cartões">Cartões</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <h5>Bando de Dados</h5>
+                                    <select name="data_base" id="db" class="filter">
+                                        <option value="">todos</option>
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <h5>Criticidade</h5>
+                                    <select name="critical" id="critcal" class="filter">
+                                        <option value="">todos</option>
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="../js/filter.js"></script>
+    <script src="../js/sidebar.js"></script>
+</body>
+</html>
